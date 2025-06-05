@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>Dziękuję</title>
+  <title>Wystaw opinię</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     html, body {
@@ -58,17 +58,23 @@
 
 <header></header>
 
-<h2>Partner</h2>
-<p>Kliknij przycisk poniżej</p>
-<button class="copy-btn" onclick="copyAndShow('partner')">ERES Partner</button>
+<!-- Sekcja partner -->
+<div class="section" id="partner-section">
+  <h2>Partner</h2>
+  <p>Kliknij przycisk poniżej</p>
+  <button class="copy-btn" onclick="copyAndShow('partner')">ERES Partner</button>
+</div>
 <div id="go-partner" class="hidden">
   <p>✅ Opinia została skopiowana!</p>
   <button class="go-btn" onclick="goTo('partner')">Przejdź do wystawienia opinii</button>
 </div>
 
-<h2>Garage</h2>
-<p>Kliknij przycisk poniżej</p>
-<button class="copy-btn" onclick="copyAndShow('garage')">ERES Garage</button>
+<!-- Sekcja garage -->
+<div class="section" id="garage-section">
+  <h2>Garage</h2>
+  <p>Kliknij przycisk poniżej</p>
+  <button class="copy-btn" onclick="copyAndShow('garage')">ERES Garage</button>
+</div>
 <div id="go-garage" class="hidden">
   <p>✅ Opinia została skopiowana!</p>
   <button class="go-btn" onclick="goTo('garage')">Przejdź do wystawienia opinii</button>
@@ -96,23 +102,19 @@
 </div>
 
 <script>
-  let targetUrl = '';
-
   function copyAndShow(type) {
-    let opinionsContainer;
-    let showElement;
-    let hideElement;
+    let opinionsContainer, showElement, hideElement, hideSection;
 
     if (type === 'partner') {
       opinionsContainer = document.querySelectorAll('#partner-opinions p');
-      targetUrl = "https://search.google.com/local/writereview?placeid=ChIJsdO4W-1bFkcRG-tP0ZQAaiQ";
       showElement = document.getElementById('go-partner');
       hideElement = document.getElementById('go-garage');
+      hideSection = document.getElementById('garage-section');
     } else if (type === 'garage') {
       opinionsContainer = document.querySelectorAll('#garage-opinions p');
-      targetUrl = "https://search.google.com/local/writereview?placeid=ChIJvQb-qNNbFkcRNyBuT9r5Q00";
       showElement = document.getElementById('go-garage');
       hideElement = document.getElementById('go-partner');
+      hideSection = document.getElementById('partner-section');
     } else {
       alert("Nieznany typ opinii.");
       return;
@@ -123,7 +125,8 @@
 
     navigator.clipboard.writeText(randomOpinion).then(() => {
       showElement.classList.remove('hidden');
-      hideElement.classList.add('hidden'); // ukryj drugą sekcję
+      hideElement.classList.add('hidden');
+      hideSection.classList.add('hidden');
     }).catch(err => {
       alert("Nie udało się skopiować opinii: " + err);
     });
