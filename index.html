@@ -101,15 +101,18 @@
   function copyAndShow(type) {
     let opinionsContainer;
     let showElement;
+    let hideElement;
 
     if (type === 'partner') {
       opinionsContainer = document.querySelectorAll('#partner-opinions p');
       targetUrl = "https://search.google.com/local/writereview?placeid=ChIJsdO4W-1bFkcRG-tP0ZQAaiQ";
       showElement = document.getElementById('go-partner');
+      hideElement = document.getElementById('go-garage');
     } else if (type === 'garage') {
       opinionsContainer = document.querySelectorAll('#garage-opinions p');
       targetUrl = "https://search.google.com/local/writereview?placeid=ChIJvQb-qNNbFkcRNyBuT9r5Q00";
       showElement = document.getElementById('go-garage');
+      hideElement = document.getElementById('go-partner');
     } else {
       alert("Nieznany typ opinii.");
       return;
@@ -120,6 +123,7 @@
 
     navigator.clipboard.writeText(randomOpinion).then(() => {
       showElement.classList.remove('hidden');
+      hideElement.classList.add('hidden'); // ukryj drugą sekcję
     }).catch(err => {
       alert("Nie udało się skopiować opinii: " + err);
     });
