@@ -1,48 +1,33 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Wystaw opinię</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
       height: 100%;
+      overflow: hidden;
     }
-
     body {
       font-family: sans-serif;
-      color: #333;
       text-align: center;
-      background: linear-gradient(to bottom, #d0eaff, #ffffff);
-      background-repeat: no-repeat;
-      background-size: cover;
+      color: #333;
+      background: linear-gradient(to bottom, #cce5ff, #ffffff);
     }
-
     header {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 60px;
       background-color: #000;
-      border-bottom: 1px solid #ccc;
-      z-index: 1000;
+      height: 60px;
+      border-bottom: 2px solid #ccc;
     }
-
     main {
-      padding: 80px 20px 20px; /* padding-top na header */
-      box-sizing: border-box;
-      height: calc(100vh - 60px); /* żeby nie wychodziło poza ekran */
-      overflow-y: auto;
+      padding: 20px;
     }
-
-    h1, h2 {
+    h2 {
       margin-top: 30px;
     }
-
     button.copy-btn, button.go-btn {
       margin: 10px;
       padding: 12px 20px;
@@ -53,98 +38,104 @@
       border-radius: 5px;
       cursor: pointer;
     }
-
     .hidden {
       display: none;
     }
   </style>
 </head>
-<body>
+<body style="display: none;">
+  <header></header>
 
-<header></header>
+  <main>
+    <section id="partner-section">
+      <h2>Partner</h2>
+      <p>Kliknij przycisk poniżej</p>
+      <button class="copy-btn" onclick="copyAndShow('partner')">ERES Partner</button>
+      <div id="go-partner" class="hidden">
+        <p>✅ Opinia została skopiowana!</p>
+        <button class="go-btn" onclick="goTo('partner')">Przejdź do wystawienia opinii</button>
+      </div>
+    </section>
 
-<main>
-  <div class="section" id="partner-section">
-    <h2>Partner</h2>
-    <p>Kliknij przycisk poniżej</p>
-    <button class="copy-btn" onclick="copyAndShow('partner')">ERES Partner</button>
-  </div>
-  <div id="go-partner" class="hidden">
-    <p>✅ Opinia została skopiowana!</p>
-    <button class="go-btn" onclick="goTo('partner')">Przejdź do wystawienia opinii</button>
-  </div>
+    <section id="garage-section">
+      <h2>Garage</h2>
+      <p>Kliknij przycisk poniżej</p>
+      <button class="copy-btn" onclick="copyAndShow('garage')">ERES Garage</button>
+      <div id="go-garage" class="hidden">
+        <p>✅ Opinia została skopiowana!</p>
+        <button class="go-btn" onclick="goTo('garage')">Przejdź do wystawienia opinii</button>
+      </div>
+    </section>
 
-  <div class="section" id="garage-section">
-    <h2>Garage</h2>
-    <p>Kliknij przycisk poniżej</p>
-    <button class="copy-btn" onclick="copyAndShow('garage')">ERES Garage</button>
-  </div>
-  <div id="go-garage" class="hidden">
-    <p>✅ Opinia została skopiowana!</p>
-    <button class="go-btn" onclick="goTo('garage')">Przejdź do wystawienia opinii</button>
-  </div>
-
-  <!-- Ukryte opinie -->
-  <div class="hidden">
-    <div id="partner-opinions">
-      <p>Pan Mariusz pomógł mi w całym procesie rejestracji i dokładnie wyjaśnił wszystkie formalności.</p>
-      <p>Dzięki Panu Mariuszowi szybko i sprawnie przeszedłem rekrutację oraz przygotowałem auto do pracy.</p>
-      <p>Bardzo profesjonalna pomoc od Pana Mariusza – wszystko jasno wytłumaczone, łącznie z oznakowaniem auta.</p>
-      <p>Mariusz przedstawił ofertę, pomógł z dokumentami i zadbał, bym był gotowy do rozpoczęcia jazdy.</p>
-      <p>Świetna obsługa – Pan Mariusz przeprowadził mnie przez cały proces i rozwiał wszystkie wątpliwości.</p>
+    <!-- Ukryte opinie -->
+    <div class="hidden">
+      <div id="partner-opinions">
+        <p>Pan Mariusz pomógł mi w całym procesie rejestracji i dokładnie wyjaśnił wszystkie formalności.</p>
+        <p>Dzięki Panu Mariuszowi szybko i sprawnie przeszedłem rekrutację oraz przygotowałem auto do pracy.</p>
+        <p>Bardzo profesjonalna pomoc od Pana Mariusza – wszystko jasno wytłumaczone, łącznie z oznakowaniem auta.</p>
+        <p>Mariusz przedstawił ofertę, pomógł z dokumentami i zadbał, bym był gotowy do rozpoczęcia jazdy.</p>
+        <p>Świetna obsługa – Pan Mariusz przeprowadził mnie przez cały proces i rozwiał wszystkie wątpliwości.</p>
+      </div>
+      <div id="garage-opinions">
+        <p>Auto zostało dokładnie wyczyszczone i wypolerowane – wygląda jak nowe! Pełen profesjonalizm.</p>
+        <p>Szybka diagnoza i naprawa usterki – wszystko sprawnie i bez problemów.</p>
+        <p>Skorzystałem z usługi detailingu – auto odzyskało blask, a wnętrze pachnie jak z salonu. Polecam!</p>
+        <p>Bardzo polecam – auto po serwisie działa jak nowe, a obsługa była rzeczowa i uczciwa.</p>
+        <p>Świetna robota z folią – samochód wygląda świetnie i wyróżnia się na ulicy!</p>
+        <p>Kompleksowy detailing zrobiony perfekcyjnie – zarówno wnętrze, jak i karoseria jak z fabryki.</p>
+        <p>Wymiana oleju, przegląd i kosmetyka wykonane bardzo sprawnie. Profesjonalna obsługa.</p>
+        <p>Auto po oklejeniu wygląda nowocześnie i profesjonalnie – świetny efekt końcowy!</p>
+      </div>
     </div>
-    <div id="garage-opinions">
-      <p>Auto zostało dokładnie wyczyszczone i wypolerowane – wygląda jak nowe! Pełen profesjonalizm.</p>
-      <p>Szybka diagnoza i naprawa usterki – wszystko sprawnie i bez problemów.</p>
-      <p>Skorzystałem z usługi detailingu – auto odzyskało blask, a wnętrze pachnie jak z salonu. Polecam!</p>
-      <p>Bardzo polecam – auto po serwisie działa jak nowe, a obsługa była rzeczowa i uczciwa.</p>
-      <p>Świetna robota z folią – samochód wygląda świetnie i wyróżnia się na ulicy!</p>
-      <p>Kompleksowy detailing zrobiony perfekcyjnie – zarówno wnętrze, jak i karoseria jak z fabryki.</p>
-      <p>Wymiana oleju, przegląd i kosmetyka wykonane bardzo sprawnie. Profesjonalna obsługa.</p>
-      <p>Auto po oklejeniu wygląda nowocześnie i profesjonalnie – świetny efekt końcowy!</p>
-    </div>
-  </div>
-</main>
+  </main>
 
-<script>
-  function copyAndShow(type) {
-    let opinionsContainer, showElement, hideElement, hideSection;
-
-    if (type === 'partner') {
-      opinionsContainer = document.querySelectorAll('#partner-opinions p');
-      showElement = document.getElementById('go-partner');
-      hideElement = document.getElementById('go-garage');
-      hideSection = document.getElementById('garage-section');
-    } else if (type === 'garage') {
-      opinionsContainer = document.querySelectorAll('#garage-opinions p');
-      showElement = document.getElementById('go-garage');
-      hideElement = document.getElementById('go-partner');
-      hideSection = document.getElementById('partner-section');
+  <script>
+    const haslo = prompt("Podaj hasło dostępu:");
+    if (haslo === "Mariusz") {
+      document.body.style.display = "block";
     } else {
-      alert("Nieznany typ opinii.");
-      return;
+      document.body.innerHTML = "<h2 style='text-align:center; margin-top: 100px;'>❌ Nieprawidłowe hasło.</h2>";
     }
 
-    const opinions = Array.from(opinionsContainer).map(p => p.textContent);
-    const randomOpinion = opinions[Math.floor(Math.random() * opinions.length)];
+    function copyAndShow(type) {
+      let opinionsContainer, showElement, hideElement, hideSection;
 
-    navigator.clipboard.writeText(randomOpinion).then(() => {
-      showElement.classList.remove('hidden');
-      hideElement.classList.add('hidden');
-      hideSection.classList.add('hidden');
-    }).catch(err => {
-      alert("Nie udało się skopiować opinii: " + err);
-    });
-  }
+      if (type === 'partner') {
+        opinionsContainer = document.querySelectorAll('#partner-opinions p');
+        showElement = document.getElementById('go-partner');
+        hideElement = document.getElementById('go-garage');
+        hideSection = document.getElementById('garage-section');
+        document.getElementById('partner-section').classList.remove('hidden');
+      } else if (type === 'garage') {
+        opinionsContainer = document.querySelectorAll('#garage-opinions p');
+        showElement = document.getElementById('go-garage');
+        hideElement = document.getElementById('go-partner');
+        hideSection = document.getElementById('partner-section');
+        document.getElementById('garage-section').classList.remove('hidden');
+      } else {
+        alert("Nieznany typ opinii.");
+        return;
+      }
 
-  function goTo(type) {
-    if (type === 'partner') {
-      window.open("https://search.google.com/local/writereview?placeid=ChIJsdO4W-1bFkcRG-tP0ZQAaiQ", '_blank');
-    } else if (type === 'garage') {
-      window.open("https://search.google.com/local/writereview?placeid=ChIJvQb-qNNbFkcRNyBuT9r5Q00", '_blank');
+      const opinions = Array.from(opinionsContainer).map(p => p.textContent);
+      const randomOpinion = opinions[Math.floor(Math.random() * opinions.length)];
+
+      navigator.clipboard.writeText(randomOpinion).then(() => {
+        showElement.classList.remove('hidden');
+        hideElement.classList.add('hidden');
+        hideSection.classList.add('hidden');
+      }).catch(err => {
+        alert("Nie udało się skopiować opinii: " + err);
+      });
     }
-  }
-</script>
 
+    function goTo(type) {
+      if (type === 'partner') {
+        window.open("https://search.google.com/local/writereview?placeid=ChIJsdO4W-1bFkcRG-tP0ZQAaiQ", '_blank');
+      } else if (type === 'garage') {
+        window.open("https://search.google.com/local/writereview?placeid=ChIJvQb-qNNbFkcRNyBuT9r5Q00", '_blank');
+      }
+    }
+  </script>
 </body>
 </html>
