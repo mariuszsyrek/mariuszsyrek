@@ -39,6 +39,7 @@
 <a class="button" onclick="copyAndGo('partner')">ERES Partner</a>
 
 <h2>Garage</h2>
+<p>Również tutaj – jedno kliknięcie i gotowe:</p>
 <a class="button" onclick="copyAndGo('garage')">Opinia – Serwis</a>
 
 <!-- Ukryte opinie -->
@@ -63,4 +64,20 @@
     <p>Detailing wykonany z ogromną precyzją – zero smug, wnętrze pachnie świeżością.</p>
     <p>Zadbano o każdy detal – felgi, tapicerka, plastiki. Wszystko jak nowe.</p>
     <p>Super efekt końcowy! Auto wygląda jak po renowacji, aż szkoda nim jeździć.</p>
-    <p>Nie spodz
+    <p>Nie spodziewałem się aż takiego efektu. Profesjonalizm w każdym calu.</p>
+    <p>Nowy kolor wygląda świetnie – folia idealnie położona, żadnych bąbli.</p>
+    <p>Oklejanie zrobione perfekcyjnie – auto wygląda nowocześnie i wyjątkowo.</p>
+    <p>Świetna jakość materiałów i dokładność wykonania – polecam każdemu!</p>
+    <p>Zmieniona stylistyka auta na +. Wygląda agresywniej i bardziej premium.</p>
+    <p>Reklama na aucie wykonana bardzo starannie – przyciąga wzrok na ulicy.</p>
+  </div>
+</div>
+
+<script>
+  function copyAndGo(type) {
+    let opinionsContainer;
+    let targetUrl = '';
+
+    if (type === 'partner') {
+      opinionsContainer = document.querySelectorAll('#partner-opinions p');
+      targetUrl = "https://search.google.com/local/writereview?placeid=ChIJsdO4W-1bFkcRG-tP0ZQAaiQ";
