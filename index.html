@@ -18,6 +18,32 @@
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-size: 100% 100%;
+      padding: 0;
+    }
+
+    .header {
+      background-color: #4285F4;
+      color: white;
+      padding: 15px 20px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .header-right {
+      font-size: 14px;
+      /* miejsce na menu / telefon w przyszłości */
     }
 
     .main {
@@ -45,8 +71,17 @@
   </style>
 </head>
 <body>
-  <div class="main">
 
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">Mariusz</div>
+      <div class="header-right">
+        <!-- miejsce na telefon lub menu -->
+      </div>
+    </div>
+  </header>
+
+  <div class="main">
     <h2>Partner</h2>
     <p>Kliknij przycisk poniżej</p>
     <button class="copy-btn" onclick="copyAndShow('partner')">ERES Partner</button>
@@ -57,7 +92,7 @@
 
     <h2>Garage</h2>
     <p>Kliknij przycisk poniżej</p>
-    <button class="copy-btn" onclick="copyAndShow('garage')">ERES Garage</button>
+    <button class="copy-btn" onclick="copyAndShow('garage')">Opinia – Serwis</button>
     <div id="go-garage" class="hidden">
       <p>✅ Opinia została skopiowana!</p>
       <button class="go-btn" onclick="goTo('garage')">Przejdź do wystawienia opinii</button>
@@ -83,7 +118,6 @@
         <p>Auto po oklejeniu wygląda nowocześnie i profesjonalnie – świetny efekt końcowy!</p>
       </div>
     </div>
-
   </div>
 
   <script>
@@ -112,17 +146,4 @@
       navigator.clipboard.writeText(randomOpinion).then(() => {
         showElement.classList.remove('hidden');
       }).catch(err => {
-        alert("Nie udało się skopiować opinii: " + err);
-      });
-    }
-
-    function goTo(type) {
-      if (type === 'partner') {
-        window.open("https://search.google.com/local/writereview?placeid=ChIJsdO4W-1bFkcRG-tP0ZQAaiQ", '_blank');
-      } else if (type === 'garage') {
-        window.open("https://search.google.com/local/writereview?placeid=ChIJvQb-qNNbFkcRNyBuT9r5Q00", '_blank');
-      }
-    }
-  </script>
-</body>
-</html>
+        alert("Nie udało się skopiować opinii:
