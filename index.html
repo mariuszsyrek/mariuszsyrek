@@ -59,14 +59,14 @@
     <p>Świetna obsługa – Pan Mariusz przeprowadził mnie przez cały proces i rozwiał wszystkie wątpliwości.</p>
   </div>
   <div id="garage-opinions">
-    <p>Auto zostało dokładnie wyczyszczone i wypolerowane – wygląda jak nowe! Pełen profesjonalizm.</p>
-    <p>Szybka diagnoza i naprawa usterki – wszystko sprawnie i bez problemów.</p>
-    <p>Skorzystałem z usługi detailingu – auto odzyskało blask, a wnętrze pachnie jak z salonu. Polecam!</p>
-    <p>Bardzo polecam – auto po serwisie działa jak nowe, a obsługa była rzeczowa i uczciwa.</p>
-    <p>Świetna robota z folią – samochód wygląda świetnie i wyróżnia się na ulicy!</p>
-    <p>Kompleksowy detailing zrobiony perfekcyjnie – zarówno wnętrze, jak i karoseria jak z fabryki.</p>
-    <p>Wymiana oleju, przegląd i kosmetyka wykonane bardzo sprawnie. Profesjonalna obsługa.</p>
-    <p>Auto po oklejeniu wygląda nowocześnie i profesjonalnie – świetny efekt końcowy!</p>
+   <p>Auto zostało dokładnie wyczyszczone i wypolerowane – wygląda jak nowe! Pełen profesjonalizm.</p>
+  <p>Szybka diagnoza i naprawa usterki – wszystko sprawnie i bez problemów.</p>
+  <p>Skorzystałem z usługi detailingu – auto odzyskało blask, a wnętrze pachnie jak z salonu. Polecam!</p>
+  <p>Bardzo polecam – auto po serwisie działa jak nowe, a obsługa była rzeczowa i uczciwa.</p>
+  <p>Świetna robota z folią – samochód wygląda świetnie i wyróżnia się na ulicy!</p>
+  <p>Kompleksowy detailing zrobiony perfekcyjnie – zarówno wnętrze, jak i karoseria jak z fabryki.</p>
+  <p>Wymiana oleju, przegląd i kosmetyka wykonane bardzo sprawnie. Profesjonalna obsługa.</p>
+  <p>Auto po oklejeniu wygląda nowocześnie i profesjonalnie – świetny efekt końcowy!</p>
   </div>
 </div>
 
@@ -81,4 +81,33 @@
       opinionsContainer = document.querySelectorAll('#partner-opinions p');
       targetUrl = "https://search.google.com/local/writereview?placeid=ChIJsdO4W-1bFkcRG-tP0ZQAaiQ";
       showElement = document.getElementById('go-partner');
-    } else if
+    } else if (type === 'garage') {
+      opinionsContainer = document.querySelectorAll('#garage-opinions p');
+      targetUrl = "https://search.google.com/local/writereview?placeid=ChIJvQb-qNNbFkcRNyBuT9r5Q00";
+      showElement = document.getElementById('go-garage');
+    } else {
+      alert("Nieznany typ opinii.");
+      return;
+    }
+
+    const opinions = Array.from(opinionsContainer).map(p => p.textContent);
+    const randomOpinion = opinions[Math.floor(Math.random() * opinions.length)];
+
+    navigator.clipboard.writeText(randomOpinion).then(() => {
+      showElement.classList.remove('hidden');
+    }).catch(err => {
+      alert("Nie udało się skopiować opinii: " + err);
+    });
+  }
+
+  function goTo(type) {
+    if (type === 'partner') {
+      window.open("https://search.google.com/local/writereview?placeid=ChIJsdO4W-1bFkcRG-tP0ZQAaiQ", '_blank');
+    } else if (type === 'garage') {
+      window.open("https://search.google.com/local/writereview?placeid=ChIJvQb-qNNbFkcRNyBuT9r5Q00", '_blank');
+    }
+  }
+</script>
+
+</body>
+</html>
