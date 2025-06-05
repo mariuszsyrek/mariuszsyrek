@@ -2,26 +2,20 @@ name: Update Secure Code
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
-  workflow_dispatch:
+    - cron: '*/5 * * * *'  # co 5 minut
 
 jobs:
   update-code:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      - name: Generate random 4-digit code
+      - name: Generate new 4-digit code
         run: |
-          CODE=$(printf "%04d" $((RANDOM % 10000)))
-          echo "{ \"code\": \"$CODE\" }" > secure-code.json
-
-      - name: Commit and push changes
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          CODE=$(shuf -i 1000-9999 -n 1)
+          echo "{\"code\": \"$CODE\"}" > secure-code.json
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
           git add secure-code.json
-          git commit -m "Update secure code" || echo "No changes to commit"
+          git commit -m "Update secure code to $CODE"
           git push
