@@ -24,15 +24,6 @@
       border-radius: 5px;
       text-decoration: none;
       font-size: 16px;
-    }
-    button.copy-btn {
-      margin: 10px;
-      padding: 12px 20px;
-      font-size: 16px;
-      background-color: #34A853;
-      color: white;
-      border: none;
-      border-radius: 5px;
       cursor: pointer;
     }
     .hidden {
@@ -44,66 +35,32 @@
 
 <h1>Wystaw opinię</h1>
 
-<p>Kliknij link, zostaw 5 ★ i użyj przycisku, aby pobrać opinię:</p>
-<a class="button" href="https://search.google.com/local/writereview?placeid=ChIJsdO4W-1bFkcRG-tP0ZQAaiQ" target="_blank">ERES Partner</a>
-<br>
-<button class="copy-btn" onclick="copyRandomOpinion('partner')">📋 Pobierz opinię – Partner</button>
+<p>Kliknij przycisk poniżej – opinia zostanie automatycznie skopiowana i otworzy się strona:</p>
+<a class="button" onclick="copyAndGo('partner')">ERES Partner</a>
 
 <h2>Garage</h2>
-<p>Kliknij link, zostaw 5 ★ i użyj przycisku, aby pobrać opinię:</p>
-<a class="button" href="https://search.google.com/local/writereview?placeid=ChIJvQb-qNNbFkcRNyBuT9r5Q00" target="_blank">Opinia – Serwis</a>
-<br>
-<button class="copy-btn" onclick="copyRandomOpinion('garage')">📋 Pobierz opinię – Garage</button>
+<a class="button" onclick="copyAndGo('garage')">Opinia – Serwis</a>
 
 <!-- Ukryte opinie -->
 <div class="hidden">
   <div id="partner-opinions">
     <p>Pan Mariusz pomógł mi w całym procesie rejestracji i dokładnie wyjaśnił wszystkie formalności.</p>
     <p>Dzięki Panu Mariuszowi szybko i sprawnie przeszedłem rekrutację oraz przygotowałem auto do pracy.</p>
-    <p>Bardzo profesjonalna pomoc od Pana Mariusza – wszystko jasno wytłumaczone, łącznie z oznakowaniem auta i rozpoczęciem pracy.</p>
-    <p>Mariusz przedstawił ofertę, pomógł z dokumentami i zadbał, bym Ja oraz pojazd był gotowy do rozpoczęcia jazdy.</p>
-    <p>Świetna obsługa – Pan Mariusz przeprowadził mnie przez cały proces rejestracji i rozwiał wszystkie wątpliwości związane z rozpoczęciem pracy.</p>
+    <p>Bardzo profesjonalna pomoc od Pana Mariusza – wszystko jasno wytłumaczone, łącznie z oznakowaniem auta.</p>
+    <p>Mariusz przedstawił ofertę, pomógł z dokumentami i zadbał, bym był gotowy do rozpoczęcia jazdy.</p>
+    <p>Świetna obsługa – Pan Mariusz przeprowadził mnie przez cały proces i rozwiał wszystkie wątpliwości.</p>
   </div>
   <div id="garage-opinions">
+    <p>Auto zostało dokładnie wyczyszczone i wypolerowane – wygląda jak nowe! Pełen profesjonalizm.</p>
+    <p>Szybka diagnoza i naprawa usterki – wszystko sprawnie i bez problemów.</p>
+    <p>Skorzystałem z usługi detailingu – auto odzyskało blask, a wnętrze pachnie jak z salonu. Polecam!</p>
     <p>Profesjonalna obsługa i szybka naprawa – auto znów działa bez zarzutu.</p>
-<p>Zaskakująco szybki termin i rzetelna diagnostyka. Polecam z czystym sumieniem.</p>
-<p>Wszystko sprawnie, uczciwie i bez naciągania – bardzo dobry warsztat.</p>
-<p>Mechanik wyjaśnił wszystko jasno, a naprawa została wykonana tego samego dnia.</p>
-<p>Auto po naprawie działa idealnie, a cena była bardzo rozsądna.</p>
-<p>Lakier odzyskał głębię i połysk – auto wygląda lepiej niż przy odbiorze z salonu!</p>
-<p>Detailing wykonany z ogromną precyzją – zero smug, wnętrze pachnie świeżością.</p>
-<p>Zadbano o każdy detal – felgi, tapicerka, plastiki. Wszystko jak nowe.</p>
-<p>Super efekt końcowy! Auto wygląda jak po renowacji, aż szkoda nim jeździć.</p>
-<p>Nie spodziewałem się aż takiego efektu. Profesjonalizm w każdym calu.</p>
-<p>Nowy kolor wygląda świetnie – folia idealnie położona, żadnych bąbli.</p>
-<p>Oklejanie zrobione perfekcyjnie – auto wygląda nowocześnie i wyjątkowo.</p>
-<p>Świetna jakość materiałów i dokładność wykonania – polecam każdemu!</p>
-<p>Zmieniona stylistyka auta na +. Wygląda agresywniej i bardziej premium.</p>
-<p>Reklama na aucie wykonana bardzo starannie – przyciąga wzrok na ulicy.</p>
-
-  </div>
-</div>
-
-<script>
-  function copyRandomOpinion(type) {
-    let opinionsContainer;
-    if (type === 'partner') {
-      opinionsContainer = document.querySelectorAll('#partner-opinions p');
-    } else if (type === 'garage') {
-      opinionsContainer = document.querySelectorAll('#garage-opinions p');
-    } else {
-      alert("Nieznany typ opinii.");
-      return;
-    }
-
-    const opinions = Array.from(opinionsContainer).map(p => p.textContent);
-    const randomOpinion = opinions[Math.floor(Math.random() * opinions.length)];
-
-    navigator.clipboard.writeText(randomOpinion).then(() => {
-      alert("Losowa opinia została skopiowana do schowka!");
-    });
-  }
-</script>
-
-</body>
-</html>
+    <p>Zaskakująco szybki termin i rzetelna diagnostyka. Polecam z czystym sumieniem.</p>
+    <p>Wszystko sprawnie, uczciwie i bez naciągania – bardzo dobry warsztat.</p>
+    <p>Mechanik wyjaśnił wszystko jasno, a naprawa została wykonana tego samego dnia.</p>
+    <p>Auto po naprawie działa idealnie, a cena była bardzo rozsądna.</p>
+    <p>Lakier odzyskał głębię i połysk – auto wygląda lepiej niż przy odbiorze z salonu!</p>
+    <p>Detailing wykonany z ogromną precyzją – zero smug, wnętrze pachnie świeżością.</p>
+    <p>Zadbano o każdy detal – felgi, tapicerka, plastiki. Wszystko jak nowe.</p>
+    <p>Super efekt końcowy! Auto wygląda jak po renowacji, aż szkoda nim jeździć.</p>
+    <p>Nie spodz
