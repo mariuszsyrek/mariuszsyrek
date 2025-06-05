@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Wystaw opinię</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+      color: #333;
+      text-align: center;
+    }
+    h1, h2 {
+      margin-top: 30px;
+    }
+    a.button {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 20px;
+      background-color: #4285F4;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    .opinion-box {
+      background: #fff;
+      margin: 15px auto;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      width: 90%;
+      max-width: 600px;
+    }
+    .copy-btn {
+      margin-top: 10px;
+      padding: 8px 14px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Wystaw opinię</h1>
+
+<h2>🔹 Obsługa Pana Mariusza</h2>
+<p>Kliknij link, zostaw 5 ★ i wklej jedną z poniższych opinii:</p>
+<a class="button" href="https://g.page/r/LINK_DO_LOKALIZACJI1" target="_blank">Opinia – Pan Mariusz</a>
+
+<div class="opinion-box">
+  <p id="op1">Pan Mariusz pomógł mi w całym procesie rejestracji i dokładnie wyjaśnił wszystkie formalności.</p>
+  <button class="copy-btn" onclick="copyText('op1')">📋 Skopiuj tekst 1</button>
+</div>
+<div class="opinion-box">
+  <p id="op2">Dzięki Panu Mariuszowi szybko i sprawnie przeszedłem rekrutację oraz przygotowałem auto do pracy.</p>
+  <button class="copy-btn" onclick="copyText('op2')">📋 Skopiuj tekst 2</button>
+</div>
+<div class="opinion-box">
+  <p id="op3">Bardzo profesjonalna pomoc od Pana Mariusza – wszystko jasno wytłumaczone, łącznie z oznakowaniem auta.</p>
+  <button class="copy-btn" onclick="copyText('op3')">📋 Skopiuj tekst 3</button>
+</div>
+<div class="opinion-box">
+  <p id="op4">Mariusz przedstawił ofertę, pomógł z dokumentami i zadbał, bym był gotowy do rozpoczęcia jazdy.</p>
+  <button class="copy-btn" onclick="copyText('op4')">📋 Skopiuj tekst 4</button>
+</div>
+<div class="opinion-box">
+  <p id="op5">Świetna obsługa – Pan Mariusz przeprowadził mnie przez cały proces i rozwiał wszystkie wątpliwości.</p>
+  <button class="copy-btn" onclick="copyText('op5')">📋 Skopiuj tekst 5</button>
+</div>
+
+<h2>🔹 Serwis samochodowy / Cardetailing</h2>
+<p>Kliknij link, zostaw 5 ★ i wklej jedną z poniższych opinii:</p>
+<a class="button" href="https://g.page/r/LINK_DO_LOKALIZACJI2" target="_blank">Opinia – Serwis</a>
+
+<div class="opinion-box">
+  <p id="op6">Auto zostało dokładnie wyczyszczone i wypolerowane – wygląda jak nowe! Pełen profesjonalizm.</p>
+  <button class="copy-btn" onclick="copyText('op6')">📋 Skopiuj tekst 1</button>
+</div>
+<div class="opinion-box">
+  <p id="op7">Szybka diagnoza i naprawa usterki – wszystko sprawnie, uczciwie i bez naciągania.</p>
+  <button class="copy-btn" onclick="copyText('op7')">📋 Skopiuj tekst 2</button>
+</div>
+<div class="opinion-box">
+  <p id="op8">Skorzystałem z usługi detailingu – auto odzyskało blask, a wnętrze pachnie jak z salonu. Polecam!</p>
+  <button class="copy-btn" onclick="copyText('op8')">📋 Skopiuj tekst 3</button>
+</div>
+
+<script>
+  function copyText(id) {
+    const text = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      alert("Tekst został skopiowany do schowka!");
+    });
+  }
+</script>
+
+</body>
+</html>
