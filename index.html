@@ -15,16 +15,24 @@
     h1, h2 {
       margin-top: 30px;
     }
-    a.button, button {
+    a.button {
       display: inline-block;
       margin: 10px;
       padding: 12px 20px;
       background-color: #4285F4;
       color: white;
-      border: none;
       border-radius: 5px;
       text-decoration: none;
       font-size: 16px;
+    }
+    button.copy-btn {
+      margin: 10px;
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #34A853;
+      color: white;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
     }
     .hidden {
@@ -36,18 +44,16 @@
 
 <h1>Wystaw opinię</h1>
 
-<p>Kliknij przycisk poniżej – opinia zostanie automatycznie skopiowana:</p>
-<a class="button" onclick="prepareOpinion('partner')">ERES Partner</a>
+<p>Kliknij link, zostaw 5 ★ i użyj przycisku, aby pobrać opinię:</p>
+<a class="button" href="https://search.google.com/local/writereview?placeid=ChIJsdO4W-1bFkcRG-tP0ZQAaiQ" target="_blank">ERES Partner</a>
+<br>
+<button class="copy-btn" onclick="copyRandomOpinion('partner')">📋 Pobierz opinię – Partner</button>
 
 <h2>Garage</h2>
-<p>Kliknij poniżej, aby skopiować opinię o serwisie:</p>
-<a class="button" onclick="prepareOpinion('garage')">Opinia – Serwis</a>
-
-<!-- Przycisk przejścia -->
-<div id="nextStep" class="hidden">
-  <p>Opinia została skopiowana. Przejdź do wystawienia opinii:</p>
-  <button onclick="goToReview()">Przejdź do wystawienia opinii</button>
-</div>
+<p>Kliknij link, zostaw 5 ★ i użyj przycisku, aby pobrać opinię:</p>
+<a class="button" href="https://search.google.com/local/writereview?placeid=ChIJvQb-qNNbFkcRNyBuT9r5Q00" target="_blank">Opinia – Serwis</a>
+<br>
+<button class="copy-btn" onclick="copyRandomOpinion('garage')">📋 Pobierz opinię – Garage</button>
 
 <!-- Ukryte opinie -->
 <div class="hidden">
@@ -62,10 +68,29 @@
     <p>Auto zostało dokładnie wyczyszczone i wypolerowane – wygląda jak nowe! Pełen profesjonalizm.</p>
     <p>Szybka diagnoza i naprawa usterki – wszystko sprawnie i bez problemów.</p>
     <p>Skorzystałem z usługi detailingu – auto odzyskało blask, a wnętrze pachnie jak z salonu. Polecam!</p>
-    <p>Profesjonalna obsługa i szybka naprawa – auto znów działa bez zarzutu.</p>
-    <p>Zaskakująco szybki termin i rzetelna diagnostyka. Polecam z czystym sumieniem.</p>
-    <p>Wszystko sprawnie, uczciwie i bez naciągania – bardzo dobry warsztat.</p>
-    <p>Mechanik wyjaśnił wszystko jasno, a naprawa została wykonana tego samego dnia.</p>
-    <p>Auto po naprawie działa idealnie, a cena była bardzo rozsądna.</p>
-    <p>Lakier odzyskał głębię i połysk – auto wygląda lepiej niż przy odbiorze z salonu!</p>
-    <p>Detailing wykonany z ogromną precyzją – zero smug, wnętrze pa
+  </div>
+</div>
+
+<script>
+  function copyRandomOpinion(type) {
+    let opinionsContainer;
+    if (type === 'partner') {
+      opinionsContainer = document.querySelectorAll('#partner-opinions p');
+    } else if (type === 'garage') {
+      opinionsContainer = document.querySelectorAll('#garage-opinions p');
+    } else {
+      alert("Nieznany typ opinii.");
+      return;
+    }
+
+    const opinions = Array.from(opinionsContainer).map(p => p.textContent);
+    const randomOpinion = opinions[Math.floor(Math.random() * opinions.length)];
+
+    navigator.clipboard.writeText(randomOpinion).then(() => {
+      alert("Losowa opinia została skopiowana do schowka!");
+    });
+  }
+</script>
+
+</body>
+</html>
