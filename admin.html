@@ -57,7 +57,7 @@
   </div>
 
   <script>
-    fetch('secure-code.json')
+    fetch('secure-code.json?v=' + Date.now())
       .then(res => res.json())
       .then(data => {
         document.getElementById('code').textContent = data.code;
