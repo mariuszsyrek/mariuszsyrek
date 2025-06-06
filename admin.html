@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel administratora – Kod logowania</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background-color: #f0f0f0;
+    }
+    h1 {
+      color: #333;
+    }
+    #code {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #0077cc;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Kod logowania</h1>
+  <p>Aktualny kod logowania to:</p>
+  <div id="code">Ładowanie...</div>
+
+  <script>
+    fetch('secure-code.json')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('code').textContent = data.code;
+      })
+      .catch(err => {
+        console.error('Błąd:', err);
+        document.getElementById('code').textContent = 'Nie udało się załadować kodu';
+      });
+  </script>
+</body>
+</html>
