@@ -2,7 +2,7 @@ name: Update Secure Code
 
 on:
   schedule:
-    - cron: '*/2 * * * *' # co 2 minuty
+    - cron: '*/5 * * * *'  # co 5 minut
 
 jobs:
   update-code:
@@ -10,18 +10,30 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Generate new 4-digit code
+      - name: Generate time-based 4-digit code
         run: |
-          CODE=$(shuf -i 1000-9999 -n 1)
-          echo "{\"code\": \"$CODE\"}" > secure-code.json
+          # Pobierz aktualny czas UTC (możemy zmienić na Europe/Warsaw jeśli chcesz)
+          HOUR=$(date -u +%H)
+          MINUTE=$(date -u +%M)
 
-          # Wymuszamy zmianę dummy pliku, by commit był zawsze inny
-          echo "// timestamp: $(date)" > dummy.txt
+          # Dodaj 15 do każdej wartości
+          CODE_H=$((10#$HOUR + 15))
+          CODE_M=$((10#$MINUTE + 15))
+
+          # Wymuś dwucyfrowy zapis (np. 3 -> 03, 27 -> 27)
+          CODE_H=$(printf "%02d" $CODE_H)
+          CODE_M=$(printf "%02d" $CODE_M)
+
+          # Połącz w kod
+          CODE="${CODE_H}${CODE_M}"
+
+          echo "{\"code\": \"$CODE\"}" > secure-code.json
+          echo "// timestamp: $(date -u)" > dummy.txt
 
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add secure-code.json dummy.txt
-          git commit -m "Update secure code to $CODE at $(date)" || echo "No changes to commit"
+          git commit -m "Generated code $CODE based on UTC time" || echo "No changes to commit"
 
       - name: Push changes
         run: |
