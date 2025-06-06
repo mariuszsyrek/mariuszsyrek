@@ -2,7 +2,7 @@ name: Update Secure Code
 
 on:
   schedule:
-    - cron: '*/5 * * * *' # co 5 minut
+    - cron: '*/2 * * * *' # co 5 minut
 
 jobs:
   update-code:
