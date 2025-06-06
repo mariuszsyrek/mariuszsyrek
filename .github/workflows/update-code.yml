@@ -2,7 +2,7 @@ name: Update Secure Code
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # co 5 minut
+    - cron: '*/5 * * * *' # co 5 minut
 
 jobs:
   update-code:
@@ -17,7 +17,8 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add secure-code.json
-          git commit -m "Update secure code to $CODE"
-          - name: Push changes
-  run: |
-    git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/mariuszsyrek/mariuszsyrek.git
+          git commit -m "Update secure code to $CODE" || echo "No changes to commit"
+
+      - name: Push changes
+        run: |
+          git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/mariuszsyrek/mariuszsyrek.git
