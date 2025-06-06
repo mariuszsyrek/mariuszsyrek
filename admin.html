@@ -44,3 +44,28 @@
     #code {
       font-size: 6rem;
       font-weight: bold;
+      color: #0077cc;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Kod logowania</h1>
+    <p>Aktualny kod logowania to:</p>
+    <div id="code">Ładowanie...</div>
+  </div>
+
+  <script>
+    fetch('secure-code.json')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('code').textContent = data.code;
+      })
+      .catch(err => {
+        console.error('Błąd:', err);
+        document.getElementById('code').textContent = 'Nie udało się załadować kodu';
+      });
+  </script>
+</body>
+</html>
