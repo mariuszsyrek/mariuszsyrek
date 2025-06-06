@@ -135,4 +135,41 @@
     function copyAndShow(type) {
       let opinionsContainer, showElement, hideElement, hideSection;
 
-      if (type
+      if (type === 'partner') {
+        opinionsContainer = document.getElementById('partner-opinions');
+        showElement = document.getElementById('go-partner');
+        hideElement = document.querySelector('#partner-section button.copy-btn');
+        hideSection = document.getElementById('garage-section');
+      } else if (type === 'garage') {
+        opinionsContainer = document.getElementById('garage-opinions');
+        showElement = document.getElementById('go-garage');
+        hideElement = document.querySelector('#garage-section button.copy-btn');
+        hideSection = document.getElementById('partner-section');
+      }
+
+      if (!opinionsContainer) return;
+
+      const opinions = Array.from(opinionsContainer.querySelectorAll('p'));
+      const randomOpinion = opinions[Math.floor(Math.random() * opinions.length)].textContent;
+
+      navigator.clipboard.writeText(randomOpinion)
+        .then(() => {
+          showElement.classList.remove('hidden');
+          hideElement.style.display = 'none';
+          if (hideSection) hideSection.style.display = 'none';
+        })
+        .catch(err => {
+          alert('Błąd kopiowania do schowka: ' + err);
+        });
+    }
+
+    function goTo(type) {
+      if (type === 'partner') {
+        window.open('https://partner.erespartner.pl/opinie', '_blank');
+      } else if (type === 'garage') {
+        window.open('https://garaż.eresgarage.pl/opinie', '_blank');
+      }
+    }
+  </script>
+</body>
+</html>
