@@ -10,30 +10,34 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Generate time-based 4-digit code
+      - name: Generate time-based 4-digit code (Poland time)
         run: |
-          # Pobierz aktualny czas UTC (możemy zmienić na Europe/Warsaw jeśli chcesz)
-          HOUR=$(date -u +%H)
-          MINUTE=$(date -u +%M)
+          # Ustaw strefę czasową na Polskę
+          TZ=Europe/Warsaw
+
+          # Pobierz lokalną godzinę i minutę
+          HOUR=$(date +%H)
+          MINUTE=$(date +%M)
 
           # Dodaj 15 do każdej wartości
           CODE_H=$((10#$HOUR + 15))
           CODE_M=$((10#$MINUTE + 15))
 
-          # Wymuś dwucyfrowy zapis (np. 3 -> 03, 27 -> 27)
+          # Wymuś zapis 2-cyfrowy
           CODE_H=$(printf "%02d" $CODE_H)
           CODE_M=$(printf "%02d" $CODE_M)
 
-          # Połącz w kod
+          # Złóż kod
           CODE="${CODE_H}${CODE_M}"
 
+          # Zapisz JSON
           echo "{\"code\": \"$CODE\"}" > secure-code.json
-          echo "// timestamp: $(date -u)" > dummy.txt
+          echo "// timestamp: $(date)" > dummy.txt
 
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add secure-code.json dummy.txt
-          git commit -m "Generated code $CODE based on UTC time" || echo "No changes to commit"
+          git commit -m "Generated code $CODE (PL time)" || echo "No changes to commit"
 
       - name: Push changes
         run: |
