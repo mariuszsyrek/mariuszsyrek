@@ -90,7 +90,6 @@
         <p>Pełne wsparcie – Mariusz pomógł z umową, założył konta w aplikacjach i oznaczył mój pojazd zgodnie z wymaganiami.</p>
         <p>Wszystko odbyło się sprawnie – najpierw podpisałem umowę, potem Mariusz założył konta w aplikacjach i przygotował auto.</p>
         <p>Świetna obsługa – Mariusz dopilnował, bym miał podpisaną umowę, aktywne konta w aplikacjach i odpowiednio oznakowany pojazd.</p>
-
       </div>
       <div id="garage-opinions">
         <p>Auto zostało dokładnie wyczyszczone i wypolerowane – wygląda jak nowe! Pełen profesjonalizm.</p>
@@ -99,7 +98,7 @@
         <p>Bardzo polecam – auto po serwisie działa jak nowe, a obsługa była rzeczowa i uczciwa.</p>
         <p>Świetna robota z folią – samochód wygląda świetnie i wyróżnia się na ulicy!</p>
         <p>Kompleksowy detailing zrobiony perfekcyjnie – zarówno wnętrze, jak i karoseria jak z fabryki.</p>
-        <p>Wymiana oleju, przegląd i kosmetyka wykonane bardzo sprawnie. Profesjonalna obsługa.</p>
+        <p>Wymiana oleju i kosmetyka wykonane bardzo sprawnie. Profesjonalna obsługa.</p>
         <p>Auto po oklejeniu wygląda nowocześnie i profesjonalnie – świetny efekt końcowy!</p>
         <p>Auto po kompleksowym myciu i polerowaniu wygląda niesamowicie – aż szkoda nim jeździć!</p>
         <p>Bardzo szybka i skuteczna naprawa – usterka usunięta, a auto gotowe do jazdy jeszcze tego samego dnia.</p>
@@ -111,58 +110,29 @@
         <p>Detailing wnętrza na najwyższym poziomie – czystość, zapach i wygląd naprawdę robią wrażenie.</p>
         <p>Wymiana elementów zawieszenia wykonana sprawnie – auto prowadzi się jak nowe.</p>
         <p>Świetna robota z wrappingiem – auto wygląda oryginalnie i bardzo estetycznie, a całość wykonana profesjonalnie.</p>
-
       </div>
     </div>
   </main>
 
   <script>
-    const haslo = prompt("Podaj hasło dostępu:");
-    if (haslo === "0000") {
-      document.body.style.display = "block";
-    } else {
-      document.body.innerHTML = "<h2 style='text-align:center; margin-top: 100px;'>❌ Nieprawidłowe hasło.</h2>";
-    }
+    // Pobierz kod z secure-code.json i porównaj z wpisanym przez użytkownika
+    fetch('secure-code.json')
+      .then(response => response.json())
+      .then(data => {
+        const correctCode = data.code;
+        const userCode = prompt("Podaj kod dostępu:");
+        if (userCode === correctCode) {
+          document.body.style.display = "block";
+        } else {
+          document.body.innerHTML = "<h2 style='text-align:center; margin-top: 100px;'>❌ Nieprawidłowy kod.</h2>";
+        }
+      })
+      .catch(error => {
+        document.body.innerHTML = "<h2 style='text-align:center; margin-top: 100px;'>❌ Błąd ładowania kodu dostępu.</h2>";
+        console.error("Błąd przy ładowaniu secure-code.json:", error);
+      });
 
     function copyAndShow(type) {
       let opinionsContainer, showElement, hideElement, hideSection;
 
-      if (type === 'partner') {
-        opinionsContainer = document.querySelectorAll('#partner-opinions p');
-        showElement = document.getElementById('go-partner');
-        hideElement = document.getElementById('go-garage');
-        hideSection = document.getElementById('garage-section');
-        document.getElementById('partner-section').classList.remove('hidden');
-      } else if (type === 'garage') {
-        opinionsContainer = document.querySelectorAll('#garage-opinions p');
-        showElement = document.getElementById('go-garage');
-        hideElement = document.getElementById('go-partner');
-        hideSection = document.getElementById('partner-section');
-        document.getElementById('garage-section').classList.remove('hidden');
-      } else {
-        alert("Nieznany typ opinii.");
-        return;
-      }
-
-      const opinions = Array.from(opinionsContainer).map(p => p.textContent);
-      const randomOpinion = opinions[Math.floor(Math.random() * opinions.length)];
-
-      navigator.clipboard.writeText(randomOpinion).then(() => {
-        showElement.classList.remove('hidden');
-        hideElement.classList.add('hidden');
-        hideSection.classList.add('hidden');
-      }).catch(err => {
-        alert("Nie udało się skopiować opinii: " + err);
-      });
-    }
-
-    function goTo(type) {
-      if (type === 'partner') {
-        window.open("https://search.google.com/local/writereview?placeid=ChIJsdO4W-1bFkcRG-tP0ZQAaiQ", '_blank');
-      } else if (type === 'garage') {
-        window.open("https://search.google.com/local/writereview?placeid=ChIJvQb-qNNbFkcRNyBuT9r5Q00", '_blank');
-      }
-    }
-  </script>
-</body>
-</html>
+      if (type
