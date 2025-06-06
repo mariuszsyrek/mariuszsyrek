@@ -2,7 +2,7 @@ name: Update Secure Code
 
 on:
   schedule:
-    - cron: '*/2 * * * *' # co 5 minut
+    - cron: '*/2 * * * *' # co 2 minuty
 
 jobs:
   update-code:
@@ -14,10 +14,14 @@ jobs:
         run: |
           CODE=$(shuf -i 1000-9999 -n 1)
           echo "{\"code\": \"$CODE\"}" > secure-code.json
+
+          # Wymuszamy zmianę dummy pliku, by commit był zawsze inny
+          echo "// timestamp: $(date)" > dummy.txt
+
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add secure-code.json
-          git commit -m "Update secure code to $CODE" || echo "No changes to commit"
+          git add secure-code.json dummy.txt
+          git commit -m "Update secure code to $CODE at $(date)" || echo "No changes to commit"
 
       - name: Push changes
         run: |
