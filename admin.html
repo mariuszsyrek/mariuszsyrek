@@ -3,12 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Panel administratora – Kod logowania</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      font-family: sans-serif;
+    html, body {
       margin: 0;
-      height: 100vh;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: sans-serif;
       background-color: #f0f0f0;
+    }
+
+    body {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -17,46 +23,24 @@
     .container {
       text-align: center;
       background: #ffffff;
-      padding: 3rem;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 4rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      max-width: 90%;
+      box-sizing: border-box;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 5rem;
       color: #333;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
     }
 
     p {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+      font-size: 3rem;
+      margin-bottom: 2rem;
     }
 
     #code {
-      font-size: 3rem;
+      font-size: 6rem;
       font-weight: bold;
-      color: #0077cc;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Kod logowania</h1>
-    <p>Aktualny kod logowania to:</p>
-    <div id="code">Ładowanie...</div>
-  </div>
-
-  <script>
-    fetch('secure-code.json')
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById('code').textContent = data.code;
-      })
-      .catch(err => {
-        console.error('Błąd:', err);
-        document.getElementById('code').textContent = 'Nie udało się załadować kodu';
-      });
-  </script>
-</body>
-</html>
