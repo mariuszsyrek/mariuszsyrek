@@ -66,9 +66,9 @@
     /* Sidebar menu */
     #sidebar {
       position: fixed;
-      top: 60px; /* poniżej headera */
+      top: 60px; /* niżej pod nagłówkiem */
       left: 0;
-      width: 125px; /* połowa szerokości */
+      width: 125px; /* połowa szerokości poprzedniej */
       height: calc(100vh - 60px);
       background: #333;
       color: white;
@@ -178,107 +178,33 @@
           </button>
         </div>
       </section>
-
-      <div class="hidden">
-        <div id="partner-opinions">
-          <p>Pan Mariusz pomógł mi w całym procesie rejestracji i dokładnie wyjaśnił wszystkie formalności.</p>
-          <p>Dzięki Panu Mariuszowi szybko i sprawnie przeszedłem rekrutację oraz przygotowałem auto do pracy.</p>
-          <p>Bardzo profesjonalna pomoc od Pana Mariusza – wszystko jasno wytłumaczone, łącznie z oznakowaniem auta.</p>
-          <p>Mariusz przedstawił ofertę, pomógł z dokumentami i zadbał, bym był gotowy do rozpoczęcia jazdy.</p>
-          <p>Świetna obsługa – Pan Mariusz przeprowadził mnie przez cały proces i rozwiał wszystkie wątpliwości.</p>
-          <p>Pan Mariusz pomógł mi sprawnie podpisać umowę, następnie utworzył konta w aplikacjach i oznakował pojazd – wszystko przebiegło bezproblemowo.</p>
-          <p>Dzięki Panu Mariuszowi szybko podpisałem umowę, miałem gotowe konta w aplikacjach i auto przygotowane do pracy.</p>
-          <p>Mariusz przeprowadził mnie przez cały proces – od podpisania umowy, przez tworzenie kont w aplikacjach, aż po oznakowanie auta.</p>
-          <p>Bardzo sprawna i profesjonalna pomoc Mariusza – umowa, konta w aplikacjach i oznakowanie pojazdu załatwione w jeden dzień.</p>
-          <p>Pan Mariusz dokładnie wytłumaczył każdy krok: najpierw podpisaliśmy umowę, potem utworzył konta w aplikacjach i oznaczył mój samochód.</p>
-        </div>
-
-        <div id="garage-opinions">
-          <p>Auto zostało dokładnie wyczyszczone i wypolerowane – wygląda jak nowe! Pełen profesjonalizm.</p>
-          <p>Szybka diagnoza i naprawa usterki – wszystko sprawnie i bez problemów.</p>
-          <p>Skorzystałem z usługi detailingu – auto odzyskało blask, a wnętrze pachnie jak z salonu. Polecam!</p>
-          <p>Bardzo polecam – auto po serwisie działa jak nowe, a obsługa była rzeczowa i uczciwa.</p>
-          <p>Świetna robota z folią – samochód wygląda świetnie i wyróżnia się na ulicy!</p>
-          <p>Kompleksowy detailing zrobiony perfekcyjnie – zarówno wnętrze, jak i karoseria jak z fabryki.</p>
-          <p>Wymiana oleju i kosmetyka wykonane bardzo sprawnie. Profesjonalna obsługa.</p>
-          <p>Auto po oklejeniu wygląda nowocześnie i profesjonalnie – świetny efekt końcowy!</p>
-          <p>Auto po kompleksowym myciu i polerowaniu wygląda niesamowicie – aż szkoda nim jeździć!</p>
-          <p>Bardzo szybka i skuteczna naprawa – usterka usunięta, a auto gotowe do jazdy jeszcze tego samego dnia.</p>
-        </div>
-      </div>
     </main>
   </div>
 
+  <!-- Załaduj skrypt z komentarzami -->
+  <script src="comments.js"></script>
+
   <script>
-    // Pula opinii dla partnera i garażu
-    const opinionPools = {
-      partner: [],
-      garage: []
-    };
-
-    function initializeOpinionPool(type) {
-      const container = document.getElementById(`${type}-opinions`);
-      const opinions = Array.from(container.querySelectorAll('p')).map(p => p.textContent);
-      opinionPools[type] = [...opinions];
-    }
-
-    function getRandomOpinion(type) {
-      if (opinionPools[type].length === 0) {
-        initializeOpinionPool(type);
-      }
-      const index = Math.floor(Math.random() * opinionPools[type].length);
-      const opinion = opinionPools[type][index];
-      opinionPools[type].splice(index, 1); // usuń używaną opinię
-      return opinion;
-    }
-
-    function copyAndShow(type) {
-      let showElement, hideElement, hideSection;
-
-      if (type === 'partner') {
-        showElement = document.getElementById('go-partner');
-        hideElement = document.querySelector('#partner-section button.copy-btn');
-        hideSection = document.getElementById('garage-section');
-      } else if (type === 'garage') {
-        showElement = document.getElementById('go-garage');
-        hideElement = document.querySelector('#garage-section button.copy-btn');
-        hideSection = document.getElementById('partner-section');
-      }
-
-      const opinion = getRandomOpinion(type);
-      navigator.clipboard.writeText(opinion).then(() => {
-        showElement.classList.remove('hidden');
-        hideElement.classList.add('hidden');
-        hideSection.style.display = 'none';
-      });
-    }
-
-    function goTo(type) {
-      if (type === 'partner') {
-        window.open('https://www.eres-partner.pl/opinia', '_blank');
-      } else if (type === 'garage') {
-        window.open('https://www.eres-garage.pl/opinia', '_blank');
-      }
-    }
-
-    // Sprawdzenie kodu dostępu
+    // Logowanie
     function checkCode() {
-      const input = document.getElementById('code-input').value.trim();
-      const validCode = "0000";
+      const input = document.getElementById("code-input").value.trim();
+      const errorMsg = document.getElementById("error-msg");
+      const codeAuth = document.getElementById("code-auth");
+      const appContent = document.getElementById("app-content");
+      const correctCode = "0000"; // Twój kod dostępu
 
-      if (input === validCode) {
-        document.getElementById('code-auth').style.display = 'none';
-        document.getElementById('app-content').style.display = 'block';
+      if (input === correctCode) {
+        codeAuth.style.display = "none";
+        appContent.style.display = "block";
       } else {
-        const err = document.getElementById('error-msg');
-        err.style.display = 'block';
+        errorMsg.style.display = "block";
       }
     }
 
     // Sidebar toggle
     function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      sidebar.classList.toggle('show');
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("show");
     }
   </script>
 </body>
