@@ -45,7 +45,8 @@ h2 {
   margin-top: 30px;
 }
 
-button.copy-btn, button.go-btn {
+button.copy-btn,
+button.go-btn {
   margin: 10px;
   padding: 12px 20px;
   font-size: 16px;
@@ -97,7 +98,7 @@ button.copy-btn, button.go-btn {
   background: #444;
 }
 
-/* Button to open sidebar */
+/* Przycisk menu */
 #menu-btn {
   position: fixed;
   top: 10px;
@@ -126,7 +127,7 @@ button.copy-btn, button.go-btn {
   transform: none;
 }
 
-/* Animacje fade + zoom dla modala */
+/* Animacje */
 @keyframes fadeZoomIn {
   0% {
     opacity: 0;
@@ -147,7 +148,6 @@ button.copy-btn, button.go-btn {
   }
 }
 
-/* 🔥 DODANE animacje fade dla logowania */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -157,6 +157,7 @@ button.copy-btn, button.go-btn {
   }
 }
 
+/* Klasy pomocnicze */
 .fade-in {
   animation: fadeIn 0.3s ease-in forwards;
 }
@@ -167,7 +168,6 @@ button.copy-btn, button.go-btn {
 
 /* QR modal */
 #qr-modal {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -181,10 +181,10 @@ button.copy-btn, button.go-btn {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
+  will-change: opacity, transform;
 }
 
 #qr-modal.show {
-  display: flex;
   opacity: 1;
   pointer-events: auto;
   animation: fadeZoomIn 0.3s forwards;
@@ -195,6 +195,7 @@ button.copy-btn, button.go-btn {
   pointer-events: none;
 }
 
+/* Styl obrazka QR */
 #qr-modal img {
   max-width: 300px;
   max-height: 300px;
