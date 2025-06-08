@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>animation4</title>
+  <title>enter</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -37,6 +37,7 @@
     <div id="sidebar">
       <ul>
         <li onclick="showQr()">Kod QR</li>
+        <!-- inne pozycje menu -->
       </ul>
     </div>
 
@@ -70,9 +71,11 @@
     </div>
   </div>
 
+  <!-- Komentarze -->
   <script src="comments.js"></script>
 
   <script>
+    // Logowanie
     function checkCode() {
       const input = document.getElementById("code-input").value.trim();
       const errorMsg = document.getElementById("error-msg");
@@ -81,24 +84,14 @@
       const correctCode = "0000";
 
       if (input === correctCode) {
-        errorMsg.style.display = "none";
-        codeAuth.classList.add("fade-out");
-
-        codeAuth.addEventListener("animationend", function handler() {
-          codeAuth.style.display = "none";
-          codeAuth.classList.remove("fade-out");
-          codeAuth.removeEventListener("animationend", handler);
-
-          appContent.style.display = "block";
-          // wymuszamy reflow aby animacja się odświeżyła
-          void appContent.offsetWidth;
-          appContent.classList.add("fade-in");
-        });
+        codeAuth.style.display = "none";
+        appContent.style.display = "block";
       } else {
         errorMsg.style.display = "block";
       }
     }
 
+    // ENTER = zatwierdzenie kodu
     document.addEventListener("DOMContentLoaded", function () {
       const input = document.getElementById("code-input");
       input.addEventListener("keydown", function (e) {
@@ -108,32 +101,19 @@
       });
     });
 
+    // Sidebar toggle
     function toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
       sidebar.classList.toggle("show");
     }
 
+    // QR modal
     function showQr() {
-      const modal = document.getElementById("qr-modal");
-      modal.classList.remove("fade-out");
-      modal.style.display = "flex";
-
-      // Wymuszenie reflow, żeby animacja zawsze działała
-      void modal.offsetWidth;
-
-      modal.classList.add("fade-in");
+      document.getElementById("qr-modal").style.display = "flex";
     }
 
     function hideQr() {
-      const modal = document.getElementById("qr-modal");
-      modal.classList.remove("fade-in");
-      modal.classList.add("fade-out");
-
-      modal.addEventListener("animationend", function handler() {
-        modal.style.display = "none";
-        modal.classList.remove("fade-out");
-        modal.removeEventListener("animationend", handler);
-      });
+      document.getElementById("qr-modal").style.display = "none";
     }
   </script>
 </body>
