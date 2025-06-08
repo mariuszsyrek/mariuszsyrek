@@ -91,6 +91,16 @@
       }
     }
 
+    // ENTER = zatwierdzenie kodu
+    document.addEventListener("DOMContentLoaded", function () {
+      const input = document.getElementById("code-input");
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          checkCode();
+        }
+      });
+    });
+
     // Sidebar toggle
     function toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
