@@ -73,48 +73,63 @@
   <script src="comments.js"></script>
 
   <script>
-    function checkCode() {
-      const input = document.getElementById("code-input").value.trim();
-      const errorMsg = document.getElementById("error-msg");
-      const codeAuth = document.getElementById("code-auth");
-      const appContent = document.getElementById("app-content");
-      const correctCode = "0000";
+  function checkCode() {
+    const input = document.getElementById("code-input").value.trim();
+    const errorMsg = document.getElementById("error-msg");
+    const codeAuth = document.getElementById("code-auth");
+    const appContent = document.getElementById("app-content");
+    const correctCode = "0000";
 
-      if (input === correctCode) {
-        errorMsg.style.display = "none";
-        codeAuth.classList.add("fade-out");
+    if (input === correctCode) {
+      errorMsg.style.display = "none";
+      codeAuth.classList.add("fade-out");
 
-        setTimeout(() => {
-          codeAuth.style.display = "none";
-          appContent.style.display = "block";
-          appContent.classList.add("fade-in");
-        }, 300);
-      } else {
-        errorMsg.style.display = "block";
+      setTimeout(() => {
+        codeAuth.style.display = "none";
+        appContent.style.display = "block";
+        appContent.classList.add("fade-in");
+      }, 300);
+    } else {
+      errorMsg.style.display = "block";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("code-input");
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        checkCode();
       }
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const input = document.getElementById("code-input");
-      input.addEventListener("keydown", function (e) {
-        if (e.key === "Enter") {
-          checkCode();
-        }
-      });
     });
+  });
 
-    function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      sidebar.classList.toggle("show");
-    }
+  function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("show");
+  }
 
-    function showQr() {
-      document.getElementById("qr-modal").style.display = "flex";
-    }
+  function showQr() {
+    const modal = document.getElementById("qr-modal");
+    modal.classList.remove("fade-out");
+    modal.style.display = "flex";
 
-    function hideQr() {
-      document.getElementById("qr-modal").style.display = "none";
-    }
-  </script>
+    // Wymuszenie reflow, żeby animacja zawsze działała
+    void modal.offsetWidth;
+
+    modal.classList.add("fade-in");
+  }
+
+  function hideQr() {
+    const modal = document.getElementById("qr-modal");
+    modal.classList.remove("fade-in");
+    modal.classList.add("fade-out");
+
+    modal.addEventListener("animationend", function handler() {
+      modal.style.display = "none";
+      modal.removeEventListener("animationend", handler);
+    });
+  }
+</script>
+
 </body>
 </html>
