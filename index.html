@@ -66,9 +66,10 @@
     /* Sidebar menu */
     #sidebar {
       position: fixed;
-      top: 0; left: 0;
-      width: 250px;
-      height: 100vh;
+      top: 60px; /* poniżej headera */
+      left: 0;
+      width: 125px; /* połowa szerokości */
+      height: calc(100vh - 60px);
       background: #333;
       color: white;
       padding: 20px;
@@ -245,46 +246,39 @@
       }
 
       const opinion = getRandomOpinion(type);
-
-      navigator.clipboard.writeText(opinion)
-        .then(() => {
-          showElement.classList.remove('hidden');
-          hideElement.style.display = 'none';
-          if (hideSection) hideSection.style.display = 'none';
-        })
-        .catch(err => {
-          alert('Błąd kopiowania do schowka: ' + err);
-        });
+      navigator.clipboard.writeText(opinion).then(() => {
+        showElement.classList.remove('hidden');
+        hideElement.classList.add('hidden');
+        hideSection.style.display = 'none';
+      });
     }
 
     function goTo(type) {
       if (type === 'partner') {
-        window.open("https://search.google.com/local/writereview?placeid=ChIJsdO4W-1bFkcRG-tP0ZQAaiQ", '_blank');
+        window.open('https://www.eres-partner.pl/opinia', '_blank');
       } else if (type === 'garage') {
-        window.open("https://search.google.com/local/writereview?placeid=ChIJvQb-qNNbFkcRNyBuT9r5Q00", '_blank');
+        window.open('https://www.eres-garage.pl/opinia', '_blank');
       }
     }
 
-    // Logowanie
+    // Sprawdzenie kodu dostępu
     function checkCode() {
-      const input = document.getElementById("code-input").value.trim();
-      const errorMsg = document.getElementById("error-msg");
-      const codeAuth = document.getElementById("code-auth");
-      const appContent = document.getElementById("app-content");
-      const correctCode = "0000"; // Twój kod dostępu
+      const input = document.getElementById('code-input').value.trim();
+      const validCode = "2503";
 
-      if (input === correctCode) {
-        codeAuth.style.display = "none";
-        appContent.style.display = "block";
+      if (input === validCode) {
+        document.getElementById('code-auth').style.display = 'none';
+        document.getElementById('app-content').style.display = 'block';
       } else {
-        errorMsg.style.display = "block";
+        const err = document.getElementById('error-msg');
+        err.style.display = 'block';
       }
     }
 
     // Sidebar toggle
     function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      sidebar.classList.toggle("show");
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('show');
     }
   </script>
 </body>
