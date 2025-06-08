@@ -85,10 +85,22 @@ function copyAndShow(type) {
   });
 }
 
+function resetView() {
+  document.getElementById('partner-section').style.display = 'block';
+  document.getElementById('garage-section').style.display = 'block';
+
+  document.getElementById('go-partner').classList.add('hidden');
+  document.getElementById('go-garage').classList.add('hidden');
+
+  document.querySelector('#partner-section button.copy-btn').classList.remove('hidden');
+  document.querySelector('#garage-section button.copy-btn').classList.remove('hidden');
+}
+
 function goTo(type) {
   if (type === 'partner') {
     window.open("https://search.google.com/local/writereview?placeid=ChIJsdO4W-1bFkcRG-tP0ZQAaiQ", "_blank");
   } else if (type === 'garage') {
     window.open("https://search.google.com/local/writereview?placeid=ChIJvQb-qNNbFkcRNyBuT9r5Q00", "_blank");
   }
+  resetView();
 }
