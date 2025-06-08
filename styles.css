@@ -1,8 +1,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100vh;
-  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);
   font-family: sans-serif;
   background: linear-gradient(to bottom, #cce5ff, #ffffff);
   color: #333;
@@ -28,7 +27,7 @@ html, body {
 
 /* TREŚĆ APLIKACJI - DOMYŚLNIE UKRYTA */
 #app-content {
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   overflow: auto;
   display: none;
 }
@@ -71,7 +70,7 @@ button.go-btn {
   top: 60px;
   left: 0;
   width: 125px;
-  height: calc(100vh - 60px);
+  height: calc(var(--vh, 1vh) * 100 - 60px);
   background: #333;
   color: white;
   padding: 20px;
