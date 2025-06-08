@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>enter</title>
+  <title>animation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -37,7 +37,6 @@
     <div id="sidebar">
       <ul>
         <li onclick="showQr()">Kod QR</li>
-        <!-- inne pozycje menu -->
       </ul>
     </div>
 
@@ -71,11 +70,9 @@
     </div>
   </div>
 
-  <!-- Komentarze -->
   <script src="comments.js"></script>
 
   <script>
-    // Logowanie
     function checkCode() {
       const input = document.getElementById("code-input").value.trim();
       const errorMsg = document.getElementById("error-msg");
@@ -84,14 +81,19 @@
       const correctCode = "0000";
 
       if (input === correctCode) {
-        codeAuth.style.display = "none";
-        appContent.style.display = "block";
+        errorMsg.style.display = "none";
+        codeAuth.classList.add("fade-out");
+
+        setTimeout(() => {
+          codeAuth.style.display = "none";
+          appContent.style.display = "block";
+          appContent.classList.add("fade-in");
+        }, 300);
       } else {
         errorMsg.style.display = "block";
       }
     }
 
-    // ENTER = zatwierdzenie kodu
     document.addEventListener("DOMContentLoaded", function () {
       const input = document.getElementById("code-input");
       input.addEventListener("keydown", function (e) {
@@ -101,13 +103,11 @@
       });
     });
 
-    // Sidebar toggle
     function toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
       sidebar.classList.toggle("show");
     }
 
-    // QR modal
     function showQr() {
       document.getElementById("qr-modal").style.display = "flex";
     }
