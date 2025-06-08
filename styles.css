@@ -176,7 +176,7 @@ button.go-btn:hover,
   z-index: 10002;
   justify-content: center;
   align-items: center;
-  animation: zoomIn 0.4s ease-out forwards;
+  opacity: 0; /* ← kontrolowane przez klasy .fade-in/.fade-out */
 }
 
 #qr-modal img {
