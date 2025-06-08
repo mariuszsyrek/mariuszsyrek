@@ -116,6 +116,7 @@
 
   <script>
     // Pobierz kod z secure-code.json i porównaj z wpisanym przez użytkownika
+    /*
     fetch('secure-code.json')
       .then(response => response.json())
       .then(data => {
@@ -131,6 +132,13 @@
         document.body.innerHTML = "<h2 style='text-align:center; margin-top: 100px;'>❌ Błąd ładowania kodu dostępu.</h2>";
         console.error("Błąd przy ładowaniu secure-code.json:", error);
       });
+      */
+    const userCode = prompt("Podaj kod dostępu:");
+    if (userCode === "0000") {
+      document.body.style.display = "block";
+    } else {
+      document.body.innerHTML = "<h2 style='text-align:center; margin-top: 100px;'>❌ Nieprawidłowy kod.</h2>";
+    }
 
     function copyAndShow(type) {
       let opinionsContainer, showElement, hideElement, hideSection;
