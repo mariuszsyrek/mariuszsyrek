@@ -44,6 +44,16 @@
   </style>
 </head>
 <body style="display: none;">
+  //dodane
+  <div id="code-auth">
+  <h2 style="margin-top: 100px;">🔒 Podaj kod dostępu</h2>
+  <input type="tel" id="code-input" inputmode="numeric" pattern="[0-9]*" maxlength="10"
+         style="padding: 10px; font-size: 18px; width: 200px; text-align: center;" autofocus />
+  <br><br>
+  <button onclick="checkCode()" style="padding: 10px 20px; font-size: 16px;">Zatwierdź</button>
+  <p id="error-msg" style="color: red; display: none;">❌ Nieprawidłowy kod.</p>
+</div>
+  //dodane
   <header></header>
 
   <main>
@@ -97,12 +107,14 @@
   </main>
 
   <script>
+    /*
     const userCode = prompt("Podaj kod dostępu:");
     if (userCode === "0000") {
       document.body.style.display = "block";
     } else {
       document.body.innerHTML = "<h2 style='text-align:center; margin-top: 100px;'>❌ Nieprawidłowy kod.</h2>";
     }
+    */
 
     const opinionPools = {
       partner: [],
@@ -160,6 +172,17 @@
       }
     }
 
+    //dodane
+function checkCode() {
+  const input = document.getElementById("code-input").value;
+  if (input === "0000") {
+    document.getElementById("code-auth").style.display = "none";
+    document.body.style.display = "block";
+  } else {
+    document.getElementById("error-msg").style.display = "block";
+  }
+}
+    //dodane
     // Inicjalizacja
     window.onload = () => {
       initializeOpinionPool('partner');
