@@ -65,12 +65,12 @@
     </main>
 
     <!-- MODAL QR -->
-    <div id="qr-modal">
-  <div id="qr-content" onclick="event.stopPropagation()">
-    <img src="qr_code.png" alt="Kod QR" />
-    <button id="download-btn" onclick="downloadQr()">📥 Pobierz QR</button>
-  </div>
-</div>
+    <div id="qr-modal" onclick="hideQr()">
+      <div id="qr-content" onclick="event.stopPropagation()">
+        <img src="qr_code.png" alt="Kod QR" />
+        <button id="download-btn" onclick="downloadQr()">📥 Pobierz QR</button>
+      </div>
+    </div>
   </div>
 
   <script src="comments.js"></script>
@@ -104,6 +104,9 @@
           checkCode();
         }
       });
+
+      // Ukrywanie QR modala po kliknięciu poza qr-content lub przycisk download
+      document.getElementById("qr-modal").addEventListener("click", hideQr);
     });
 
     function toggleSidebar() {
@@ -124,7 +127,17 @@
 
       setTimeout(() => {
         qrModal.classList.remove("hide");
-      }, 300); // po zakończeniu animacji usuwamy hide, by móc ponownie uruchomić
+      }, 300);
+    }
+
+    function downloadQr() {
+      const img = document.querySelector("#qr-content img");
+      const link = document.createElement("a");
+      link.href = img.src;
+      link.download = "qr_code.png";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   </script>
 </body>
