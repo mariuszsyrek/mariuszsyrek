@@ -162,11 +162,19 @@ button.go-btn:hover {
   cursor: pointer;
   z-index: 10001;
   transition: none; /* brak animacji */
+
+  /* dodane, aby wyłączyć niebieski efekt na mobilnych */
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
 #menu-btn:hover {
   background-color: #333;
   transform: none;
+}
+
+#menu-btn:focus {
+  outline: none;
 }
 
 /* QR modal */
