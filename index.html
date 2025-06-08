@@ -14,115 +14,37 @@
       background: linear-gradient(to bottom, #cce5ff, #ffffff);
       color: #333;
     }
-
-    #code-auth {
-      text-align: center;
-      margin-top: 100px;
+    body {
+      display: none; /* ukryte do czasu podania kodu */
     }
-
-    #code-auth input[type="tel"] {
-      padding: 10px;
-      font-size: 18px;
-      width: 200px;
-      text-align: center;
-    }
-
-    #code-auth button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
     header {
       background-color: #000;
       height: 60px;
       border-bottom: 2px solid #ccc;
-    }
-
-    #sidebar {
-      position: fixed;
-      top: 60px; /* pod headerem */
-      left: 0;
-      width: 250px;
-      height: calc(100% - 60px);
-      background-color: #333;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
       color: white;
-      transform: translateX(-250px);
-      transition: transform 0.3s ease;
-      z-index: 1000;
-      padding: 15px;
-      box-sizing: border-box;
+      position: relative;
+      z-index: 1;
     }
-
-    #sidebar.visible {
-      transform: translateX(0);
-    }
-
-    #sidebar button.close-btn {
-      background: transparent;
-      border: none;
-      color: white;
-      font-size: 18px;
-      cursor: pointer;
-      margin-bottom: 20px;
-    }
-
-    #sidebar ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    #sidebar ul li {
-      padding: 10px 0;
-      cursor: pointer;
-      border-bottom: 1px solid #555;
-    }
-
-    #sidebar ul li:hover {
-      background-color: #555;
-    }
-
     #menu-toggle {
-      position: fixed;
-      top: 15px;
-      left: 15px;
-      background: #000;
-      color: #fff;
+      font-size: 24px;
+      background: none;
       border: none;
-      padding: 8px 12px;
-      font-size: 16px;
+      color: white;
       cursor: pointer;
-      z-index: 1100;
-      border-radius: 4px;
+      user-select: none;
     }
-
-    #app {
-      display: none;
-      padding-left: 0; /* bez sidebara na start */
-      transition: padding-left 0.3s ease;
-      min-height: 100vh;
-      box-sizing: border-box;
+    main {
+      padding: 20px;
+      height: calc(100vh - 60px);
+      overflow-y: auto;
+      text-align: center;
     }
-
-    #app.sidebar-visible {
-      padding-left: 250px;
-    }
-
-   main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;  /* poziome wyśrodkowanie */
-    justify-content: center; /* pionowe wyśrodkowanie */
-    height: calc(100vh - 60px); /* pełna wysokość ekranu minus header */
-    padding: 20px;
-    box-sizing: border-box;
-    }
-
     h2 {
       margin-top: 30px;
     }
-
     button.copy-btn, button.go-btn {
       margin: 10px;
       padding: 12px 20px;
@@ -133,109 +55,171 @@
       border-radius: 5px;
       cursor: pointer;
     }
-
     .hidden {
       display: none;
     }
 
+    /* Sidebar */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 250px;
+      background-color: #222;
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+    }
+    #sidebar.active {
+      transform: translateX(0);
+    }
+    #sidebar h3 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+    #sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-grow: 1;
+    }
+    #sidebar ul li {
+      margin-bottom: 15px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    #sidebar ul li:hover {
+      text-decoration: underline;
+    }
+
+    /* Kod dostępu */
+    #code-auth {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px 40px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      border-radius: 8px;
+      z-index: 10000;
+      text-align: center;
+      width: 280px;
+    }
+    #code-auth h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+    #code-input {
+      padding: 10px;
+      font-size: 18px;
+      width: 100%;
+      text-align: center;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+    }
+    #error-msg {
+      color: red;
+      margin-top: 10px;
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <!-- Panel logowania -->
+  <!-- Kod dostępu -->
   <div id="code-auth">
     <h2>🔒 Podaj kod dostępu</h2>
-    <input
-      type="tel"
-      id="code-input"
-      inputmode="numeric"
-      pattern="[0-9]*"
-      maxlength="10"
-      autofocus
-    />
+    <input type="tel" id="code-input" inputmode="numeric" pattern="[0-9]*" maxlength="10" autofocus />
     <br /><br />
-    <button onclick="checkCode()">Zatwierdź</button>
-    <p id="error-msg" style="color: red; display: none;">❌ Nieprawidłowy kod.</p>
+    <button onclick="checkCode()" style="padding: 10px 20px; font-size: 16px;">Zatwierdź</button>
+    <p id="error-msg">❌ Nieprawidłowy kod.</p>
   </div>
 
-  <!-- Cała aplikacja, ukryta do momentu zalogowania -->
-  <div id="app">
-    <button id="menu-toggle" aria-label="Toggle menu">☰ Menu</button>
+  <!-- Sidebar -->
+  <nav id="sidebar">
+    <h3>Menu</h3>
+    <ul>
+      <li onclick="toggleSidebar(); alert('Tu możesz dodać funkcję wyświetlania Kod QR');">Kod QR</li>
+      <!-- Możesz dodać kolejne elementy menu tutaj -->
+    </ul>
+  </nav>
 
-    <header></header>
+  <header>
+    <button id="menu-toggle" onclick="toggleSidebar()">☰ Menu</button>
+  </header>
 
-    <div id="sidebar" role="navigation" aria-label="Menu">
-      <button class="close-btn" aria-label="Zamknij menu" onclick="toggleSidebar()">× Zamknij</button>
-      <ul>
-        <li onclick="toggleSidebar()">Kod QR</li>
-        <!-- inne pozycje menu -->
-      </ul>
-    </div>
-
-    <main>
-      <section id="partner-section">
-        <h2>Partner</h2>
-        <p>Kliknij przycisk poniżej</p>
-        <button class="copy-btn" onclick="copyAndShow('partner')">ERES Partner</button>
-        <div id="go-partner" class="hidden">
-          <p>✅ Opinia została skopiowana!</p>
-          <button class="go-btn" onclick="goTo('partner')">Przejdź do wystawienia opinii</button>
-        </div>
-      </section>
-
-      <section id="garage-section">
-        <h2>Garage</h2>
-        <p>Kliknij przycisk poniżej</p>
-        <button class="copy-btn" onclick="copyAndShow('garage')">ERES Garage</button>
-        <div id="go-garage" class="hidden">
-          <p>✅ Opinia została skopiowana!</p>
-          <button class="go-btn" onclick="goTo('garage')">Przejdź do wystawienia opinii</button>
-        </div>
-      </section>
-
-      <div class="hidden">
-        <div id="partner-opinions">
-          <p>Pan Mariusz pomógł mi w całym procesie rejestracji i dokładnie wyjaśnił wszystkie formalności.</p>
-          <p>Dzięki Panu Mariuszowi szybko i sprawnie przeszedłem rekrutację oraz przygotowałem auto do pracy.</p>
-          <p>Bardzo profesjonalna pomoc od Pana Mariusza – wszystko jasno wytłumaczone, łącznie z oznakowaniem auta.</p>
-          <p>Mariusz przedstawił ofertę, pomógł z dokumentami i zadbał, bym był gotowy do rozpoczęcia jazdy.</p>
-          <p>Świetna obsługa – Pan Mariusz przeprowadził mnie przez cały proces i rozwiał wszystkie wątpliwości.</p>
-          <p>Pan Mariusz pomógł mi sprawnie podpisać umowę, następnie utworzył konta w aplikacjach i oznakował pojazd – wszystko przebiegło bezproblemowo.</p>
-          <p>Dzięki Panu Mariuszowi szybko podpisałem umowę, miałem gotowe konta w aplikacjach i auto przygotowane do pracy.</p>
-          <p>Mariusz przeprowadził mnie przez cały proces – od podpisania umowy, przez tworzenie kont w aplikacjach, aż po oznakowanie auta.</p>
-          <p>Bardzo sprawna i profesjonalna pomoc Mariusza – umowa, konta w aplikacjach i oznakowanie pojazdu załatwione w jeden dzień.</p>
-          <p>Pan Mariusz dokładnie wytłumaczył każdy krok: najpierw podpisaliśmy umowę, potem utworzył konta w aplikacjach i oznaczył mój samochód.</p>
-          <p>Mariusz od początku do końca zadbał o każdy szczegół – pomógł z dokumentami, aplikacjami i przygotowaniem auta.</p>
-          <p>Cały proces rejestracji przebiegł sprawnie dzięki Mariuszowi – bardzo rzetelne podejście i fachowa pomoc.</p>
-          <p>Dzięki Panu Mariuszowi rozpocząłem pracę bez stresu – wszystko załatwione w jeden dzień, łącznie z oznakowaniem auta.</p>
-          <p>Profesjonalizm na najwyższym poziomie – Mariusz wyjaśnił wszystko krok po kroku i pomógł przygotować pojazd do jazdy.</p>
-          <p>Pan Mariusz bardzo mi pomógł – rejestracja, umowa, konta i oznakowanie auta były gotowe bez żadnych problemów.</p>
-          <p>Świetna pomoc – Mariusz zadbał o każdy etap: od dokumentów po aplikacje i przygotowanie pojazdu.</p>
-          <p>Bardzo polecam – dzięki Mariuszowi wszystko było jasne i przejrzyste, a auto gotowe do pracy w krótkim czasie.</p>
-          <p>Pełne zaangażowanie ze strony Mariusza – proces przebiegł szybko i sprawnie, bez zbędnych formalności.</p>
-          <p>Duże wsparcie w procesie rejestracji – Mariusz pomógł z dokumentami, aplikacjami i przygotowaniem auta od A do Z.</p>
-          <p>Znakomita organizacja – Mariusz wszystko zorganizował, wytłumaczył i dopilnował, by niczego nie zabrakło.</p>
-          <p>Proces rejestracji był dzięki Mariuszowi szybki i bezproblemowy – w jeden dzień wszystko było gotowe.</p>
-          <p>Doceniam profesjonalne podejście – Mariusz zadbał o to, by auto, aplikacje i dokumenty były gotowe do pracy.</p>
-          <p>Mariusz pomógł mi uniknąć zbędnych problemów – poprowadził cały proces od początku do końca bardzo sprawnie.</p>
-          <p>Kompleksowe wsparcie i świetny kontakt – Mariusz wszystko przygotował, wyjaśnił i dopilnował szczegółów.</p>
-          <p>Dzięki Panu Mariuszowi mogłem szybko rozpocząć pracę – wszystko załatwione bez stresu i opóźnień.</p>
-        </div>
-
-        <div id="garage-opinions">
-          <p>Auto zostało dokładnie wyczyszczone i wypolerowane – wygląda jak nowe! Pełen profesjonalizm.</p>
-          <p>Szybka diagnoza i naprawa usterki – wszystko sprawnie i bez problemów.</p>
-          <p>Skorzystałem z usługi detailingu – auto odzyskało blask, a wnętrze pachnie jak z salonu. Polecam!</p>
-          <p>Bardzo polecam – auto po serwisie działa jak nowe, a obsługa była rzeczowa i uczciwa.</p>
-          <p>Świetna robota z folią – samochód wygląda świetnie i wyróżnia się na ulicy!</p>
-          <p>Kompleksowy detailing zrobiony perfekcyjnie – zarówno wnętrze, jak i karoseria jak z fabryki.</p>
-          <p>Wymiana oleju i kosmetyka wykonane bardzo sprawnie. Profesjonalna obsługa.</p>
-          <p>Auto po oklejeniu wygląda nowocześnie i profesjonalnie – świetny efekt końcowy!</p>
-          <p>Auto po kompleksowym myciu i polerowaniu wygląda niesamowicie – aż szkoda nim jeździć!</p>
-          <p>Bardzo szybka i skuteczna naprawa – usterka usunięta, a auto gotowe do jazdy jeszcze tego samego dnia.</p>
-        </div>
+  <main>
+    <section id="partner-section">
+      <h2>Partner</h2>
+      <p>Kliknij przycisk poniżej</p>
+      <button class="copy-btn" onclick="copyAndShow('partner')">ERES Partner</button>
+      <div id="go-partner" class="hidden">
+        <p>✅ Opinia została skopiowana!</p>
+        <button class="go-btn" onclick="goTo('partner')">Przejdź do wystawienia opinii</button>
       </div>
-    </main>
-  </div>
+    </section>
+
+    <section id="garage-section">
+      <h2>Garage</h2>
+      <p>Kliknij przycisk poniżej</p>
+      <button class="copy-btn" onclick="copyAndShow('garage')">ERES Garage</button>
+      <div id="go-garage" class="hidden">
+        <p>✅ Opinia została skopiowana!</p>
+        <button class="go-btn" onclick="goTo('garage')">Przejdź do wystawienia opinii</button>
+      </div>
+    </section>
+
+    <div class="hidden">
+      <div id="partner-opinions">
+        <p>Pan Mariusz pomógł mi w całym procesie rejestracji i dokładnie wyjaśnił wszystkie formalności.</p>
+        <p>Dzięki Panu Mariuszowi szybko i sprawnie przeszedłem rekrutację oraz przygotowałem auto do pracy.</p>
+        <p>Bardzo profesjonalna pomoc od Pana Mariusza – wszystko jasno wytłumaczone, łącznie z oznakowaniem auta.</p>
+        <p>Mariusz przedstawił ofertę, pomógł z dokumentami i zadbał, bym był gotowy do rozpoczęcia jazdy.</p>
+        <p>Świetna obsługa – Pan Mariusz przeprowadził mnie przez cały proces i rozwiał wszystkie wątpliwości.</p>
+        <p>Pan Mariusz pomógł mi sprawnie podpisać umowę, następnie utworzył konta w aplikacjach i oznakował pojazd – wszystko przebiegło bezproblemowo.</p>
+        <p>Dzięki Panu Mariuszowi szybko podpisałem umowę, miałem gotowe konta w aplikacjach i auto przygotowane do pracy.</p>
+        <p>Mariusz przeprowadził mnie przez cały proces – od podpisania umowy, przez tworzenie kont w aplikacjach, aż po oznakowanie auta.</p>
+        <p>Bardzo sprawna i profesjonalna pomoc Mariusza – umowa, konta w aplikacjach i oznakowanie pojazdu załatwione w jeden dzień.</p>
+        <p>Pan Mariusz dokładnie wytłumaczył każdy krok: najpierw podpisaliśmy umowę, potem utworzył konta w aplikacjach i oznaczył mój samochód.</p>
+        <p>Mariusz od początku do końca zadbał o każdy szczegół – pomógł z dokumentami, aplikacjami i przygotowaniem auta.</p>
+        <p>Cały proces rejestracji przebiegł sprawnie dzięki Mariuszowi – bardzo rzetelne podejście i fachowa pomoc.</p>
+        <p>Dzięki Panu Mariuszowi rozpocząłem pracę bez stresu – wszystko załatwione w jeden dzień, łącznie z oznakowaniem auta.</p>
+        <p>Profesjonalizm na najwyższym poziomie – Mariusz wyjaśnił wszystko krok po kroku i pomógł przygotować pojazd do jazdy.</p>
+        <p>Pan Mariusz bardzo mi pomógł – rejestracja, umowa, konta i oznakowanie auta były gotowe bez żadnych problemów.</p>
+        <p>Świetna pomoc – Mariusz zadbał o każdy etap: od dokumentów po aplikacje i przygotowanie pojazdu.</p>
+        <p>Bardzo polecam – dzięki Mariuszowi wszystko było jasne i przejrzyste, a auto gotowe do pracy w krótkim czasie.</p>
+        <p>Pełne zaangażowanie ze strony Mariusza – proces przebiegł szybko i sprawnie, bez zbędnych formalności.</p>
+        <p>Duże wsparcie w procesie rejestracji – Mariusz pomógł z dokumentami, aplikacjami i przygotowaniem auta od A do Z.</p>
+        <p>Znakomita organizacja – Mariusz wszystko zorganizował, wytłumaczył i dopilnował, by niczego nie zabrakło.</p>
+        <p>Proces rejestracji był dzięki Mariuszowi szybki i bezproblemowy – w jeden dzień wszystko było gotowe.</p>
+        <p>Doceniam profesjonalne podejście – Mariusz zadbał o to, by auto, aplikacje i dokumenty były gotowe do pracy.</p>
+        <p>Mariusz pomógł mi uniknąć zbędnych problemów – poprowadził cały proces od początku do końca bardzo sprawnie.</p>
+        <p>Kompleksowe wsparcie i świetny kontakt – Mariusz wszystko przygotował, wyjaśnił i dopilnował szczegółów.</p>
+        <p>Dzięki Panu Mariuszowi mogłem szybko rozpocząć pracę – wszystko załatwione bez stresu i opóźnień.</p>
+      </div>
+
+      <div id="garage-opinions">
+        <p>Auto zostało dokładnie wyczyszczone i wypolerowane – wygląda jak nowe! Pełen profesjonalizm.</p>
+        <p>Szybka diagnoza i naprawa usterki – wszystko sprawnie i bez problemów.</p>
+        <p>Skorzystałem z usługi detailingu – auto odzyskało blask, a wnętrze pachnie jak z salonu. Polecam!</p>
+        <p>Bardzo polecam – auto po serwisie działa jak nowe, a obsługa była rzeczowa i uczciwa.</p>
+        <p>Świetna robota z folią – samochód wygląda świetnie i wyróżnia się na ulicy!</p>
+        <p>Kompleksowy detailing zrobiony perfekcyjnie – zarówno wnętrze, jak i karoseria jak z fabryki.</p>
+        <p>Wymiana oleju i kosmetyka wykonane bardzo sprawnie. Profesjonalna obsługa.</p>
+        <p>Auto po oklejeniu wygląda nowocześnie i profesjonalnie – świetny efekt końcowy!</p>
+        <p>Auto po kompleksowym myciu i polerowaniu wygląda niesamowicie – aż szkoda nim jeździć!</p>
+        <p>Bardzo szybka i skuteczna naprawa – usterka usunięta, a auto gotowe do jazdy jeszcze tego samego dnia.</p>
+      </div>
+    </div>
+  </main>
 
   <script>
     const opinionPools = {
@@ -253,7 +237,6 @@
       if (opinionPools[type].length === 0) {
         initializeOpinionPool(type);
       }
-
       const index = Math.floor(Math.random() * opinionPools[type].length);
       const opinion = opinionPools[type][index];
       opinionPools[type].splice(index, 1); // usuń używaną opinię
@@ -279,51 +262,40 @@
         .then(() => {
           showElement.classList.remove('hidden');
           hideElement.style.display = 'none';
-          if (hideSection) hideSection.style.display = 'none';
+          hideSection.style.display = 'none';
         })
-        .catch(err => {
-          alert('Błąd kopiowania do schowka: ' + err);
-        });
+        .catch(() => alert('Nie udało się skopiować tekstu.'));
     }
 
     function goTo(type) {
       if (type === 'partner') {
-        window.open("https://search.google.com/local/writereview?placeid=ChIJsdO4W-1bFkcRG-tP0ZQAaiQ", '_blank');
+        window.open('https://www.google.com/maps/place/ERES+Partner', '_blank');
       } else if (type === 'garage') {
-        window.open("https://search.google.com/local/writereview?placeid=ChIJvQb-qNNbFkcRNyBuT9r5Q00", '_blank');
+        window.open('https://www.google.com/maps/place/ERES+Garage', '_blank');
       }
     }
 
+    // Kod dostępu i odsłanianie strony
+    const correctCode = '123456'; // ustaw swój kod tutaj
+
     function checkCode() {
-      const input = document.getElementById("code-input").value;
-      if (input === "0000") {
-        document.getElementById("code-auth").style.display = "none";
-        document.getElementById("app").style.display = "block";
-        initializeOpinionPool('partner');
-        initializeOpinionPool('garage');
+      const input = document.getElementById('code-input').value.trim();
+      const errorMsg = document.getElementById('error-msg');
+      if (input === correctCode) {
+        document.getElementById('code-auth').style.display = 'none';
+        document.body.style.display = 'block';
       } else {
-        const errorMsg = document.getElementById("error-msg");
-        errorMsg.style.display = "block";
-        setTimeout(() => {
-          errorMsg.style.display = "none";
-        }, 3000);
+        errorMsg.style.display = 'block';
       }
     }
 
     // Sidebar toggle
-    const sidebar = document.getElementById('sidebar');
-    const menuToggle = document.getElementById('menu-toggle');
-    const app = document.getElementById('app');
-
     function toggleSidebar() {
-      sidebar.classList.toggle('visible');
-      app.classList.toggle('sidebar-visible');
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('active');
     }
 
-    menuToggle.addEventListener('click', toggleSidebar);
-
-    // Ukrycie sidebar przy kliknięciu na pozycję menu "Kod QR"
-    sidebar.querySelector('ul li').addEventListener('click', toggleSidebar);
+    // Zamknięcie sidebaru po kliknięciu w pozycję menu (już jest w li onclick)
   </script>
 </body>
 </html>
