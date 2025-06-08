@@ -6,81 +6,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     html, body {
-      margin: 0; padding: 0; height: 100%;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
       font-family: sans-serif;
       background: linear-gradient(to bottom, #cce5ff, #ffffff);
       color: #333;
-      overflow-x: hidden;
     }
 
-    /* Logowanie */
     #code-auth {
       text-align: center;
-      padding-top: 100px;
+      margin-top: 100px;
     }
+
     #code-auth input[type="tel"] {
       padding: 10px;
       font-size: 18px;
       width: 200px;
       text-align: center;
     }
+
     #code-auth button {
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
-    }
-    #error-msg {
-      color: red;
-      display: none;
-      margin-top: 10px;
-    }
-
-    /* Cała aplikacja - ukryta na start */
-    #app {
-      display: none;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
 
     header {
       background-color: #000;
       height: 60px;
       border-bottom: 2px solid #ccc;
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-      position: relative;
-      color: white;
     }
 
-    /* Przycisk hamburgera */
-    #menu-toggle {
-      cursor: pointer;
-      font-size: 24px;
-      user-select: none;
-      margin-right: 15px;
-      background: none;
-      border: none;
-      color: white;
-    }
-
-    /* Sidebar */
     #sidebar {
       position: fixed;
       top: 60px; /* pod headerem */
-      left: -250px; /* ukryty poza ekranem */
+      left: 0;
       width: 250px;
       height: calc(100% - 60px);
       background-color: #333;
       color: white;
-      padding: 20px;
-      box-sizing: border-box;
-      transition: left 0.3s ease;
+      transform: translateX(-250px);
+      transition: transform 0.3s ease;
       z-index: 1000;
+      padding: 15px;
+      box-sizing: border-box;
     }
+
     #sidebar.visible {
-      left: 0;
+      transform: translateX(0);
+    }
+
+    #sidebar button.close-btn {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      margin-bottom: 20px;
     }
 
     #sidebar ul {
@@ -88,23 +72,45 @@
       padding: 0;
       margin: 0;
     }
+
     #sidebar ul li {
-      margin-bottom: 15px;
-      font-size: 18px;
+      padding: 10px 0;
       cursor: pointer;
+      border-bottom: 1px solid #555;
     }
+
     #sidebar ul li:hover {
-      text-decoration: underline;
+      background-color: #555;
+    }
+
+    #menu-toggle {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 1100;
+      border-radius: 4px;
+    }
+
+    #app {
+      display: none;
+      padding-left: 0; /* bez sidebara na start */
+      transition: padding-left 0.3s ease;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    #app.sidebar-visible {
+      padding-left: 250px;
     }
 
     main {
       padding: 20px;
-      margin-top: 60px;
-      /* jeśli sidebar pokazany, main się nie przesuwa, bo sidebar jest na fixed */
-    }
-
-    section {
-      margin-bottom: 40px;
     }
 
     h2 {
@@ -125,31 +131,39 @@
     .hidden {
       display: none;
     }
+
   </style>
 </head>
 <body>
-  <!-- Logowanie -->
+  <!-- Panel logowania -->
   <div id="code-auth">
     <h2>🔒 Podaj kod dostępu</h2>
-    <input type="tel" id="code-input" inputmode="numeric" pattern="[0-9]*" maxlength="10" autofocus />
+    <input
+      type="tel"
+      id="code-input"
+      inputmode="numeric"
+      pattern="[0-9]*"
+      maxlength="10"
+      autofocus
+    />
     <br /><br />
     <button onclick="checkCode()">Zatwierdź</button>
-    <p id="error-msg">❌ Nieprawidłowy kod.</p>
+    <p id="error-msg" style="color: red; display: none;">❌ Nieprawidłowy kod.</p>
   </div>
 
-  <!-- Główna aplikacja -->
+  <!-- Cała aplikacja, ukryta do momentu zalogowania -->
   <div id="app">
-    <header>
-      <button id="menu-toggle" aria-label="Toggle menu">&#9776;</button>
-      <div>Moja aplikacja</div>
-    </header>
+    <button id="menu-toggle" aria-label="Toggle menu">☰ Menu</button>
 
-    <nav id="sidebar">
+    <header></header>
+
+    <div id="sidebar" role="navigation" aria-label="Menu">
+      <button class="close-btn" aria-label="Zamknij menu" onclick="toggleSidebar()">× Zamknij</button>
       <ul>
-        <li id="qr-menu-item">Kod QR</li>
-        <!-- tutaj możesz dodać więcej pozycji -->
+        <li onclick="toggleSidebar()">Kod QR</li>
+        <!-- inne pozycje menu -->
       </ul>
-    </nav>
+    </div>
 
     <main>
       <section id="partner-section">
@@ -184,6 +198,21 @@
           <p>Mariusz przeprowadził mnie przez cały proces – od podpisania umowy, przez tworzenie kont w aplikacjach, aż po oznakowanie auta.</p>
           <p>Bardzo sprawna i profesjonalna pomoc Mariusza – umowa, konta w aplikacjach i oznakowanie pojazdu załatwione w jeden dzień.</p>
           <p>Pan Mariusz dokładnie wytłumaczył każdy krok: najpierw podpisaliśmy umowę, potem utworzył konta w aplikacjach i oznaczył mój samochód.</p>
+          <p>Mariusz od początku do końca zadbał o każdy szczegół – pomógł z dokumentami, aplikacjami i przygotowaniem auta.</p>
+          <p>Cały proces rejestracji przebiegł sprawnie dzięki Mariuszowi – bardzo rzetelne podejście i fachowa pomoc.</p>
+          <p>Dzięki Panu Mariuszowi rozpocząłem pracę bez stresu – wszystko załatwione w jeden dzień, łącznie z oznakowaniem auta.</p>
+          <p>Profesjonalizm na najwyższym poziomie – Mariusz wyjaśnił wszystko krok po kroku i pomógł przygotować pojazd do jazdy.</p>
+          <p>Pan Mariusz bardzo mi pomógł – rejestracja, umowa, konta i oznakowanie auta były gotowe bez żadnych problemów.</p>
+          <p>Świetna pomoc – Mariusz zadbał o każdy etap: od dokumentów po aplikacje i przygotowanie pojazdu.</p>
+          <p>Bardzo polecam – dzięki Mariuszowi wszystko było jasne i przejrzyste, a auto gotowe do pracy w krótkim czasie.</p>
+          <p>Pełne zaangażowanie ze strony Mariusza – proces przebiegł szybko i sprawnie, bez zbędnych formalności.</p>
+          <p>Duże wsparcie w procesie rejestracji – Mariusz pomógł z dokumentami, aplikacjami i przygotowaniem auta od A do Z.</p>
+          <p>Znakomita organizacja – Mariusz wszystko zorganizował, wytłumaczył i dopilnował, by niczego nie zabrakło.</p>
+          <p>Proces rejestracji był dzięki Mariuszowi szybki i bezproblemowy – w jeden dzień wszystko było gotowe.</p>
+          <p>Doceniam profesjonalne podejście – Mariusz zadbał o to, by auto, aplikacje i dokumenty były gotowe do pracy.</p>
+          <p>Mariusz pomógł mi uniknąć zbędnych problemów – poprowadził cały proces od początku do końca bardzo sprawnie.</p>
+          <p>Kompleksowe wsparcie i świetny kontakt – Mariusz wszystko przygotował, wyjaśnił i dopilnował szczegółów.</p>
+          <p>Dzięki Panu Mariuszowi mogłem szybko rozpocząć pracę – wszystko załatwione bez stresu i opóźnień.</p>
         </div>
 
         <div id="garage-opinions">
@@ -218,9 +247,10 @@
       if (opinionPools[type].length === 0) {
         initializeOpinionPool(type);
       }
+
       const index = Math.floor(Math.random() * opinionPools[type].length);
       const opinion = opinionPools[type][index];
-      opinionPools[type].splice(index, 1);
+      opinionPools[type].splice(index, 1); // usuń używaną opinię
       return opinion;
     }
 
@@ -258,38 +288,36 @@
       }
     }
 
-    // logowanie
     function checkCode() {
       const input = document.getElementById("code-input").value;
       if (input === "0000") {
         document.getElementById("code-auth").style.display = "none";
-        document.getElementById("app").style.display = "flex";
+        document.getElementById("app").style.display = "block";
+        initializeOpinionPool('partner');
+        initializeOpinionPool('garage');
       } else {
-        const errMsg = document.getElementById("error-msg");
-        errMsg.style.display = "block";
-        setTimeout(() => { errMsg.style.display = "none"; }, 2500);
+        const errorMsg = document.getElementById("error-msg");
+        errorMsg.style.display = "block";
+        setTimeout(() => {
+          errorMsg.style.display = "none";
+        }, 3000);
       }
     }
 
-    // obsługa menu sidebar
-    window.onload = () => {
-      initializeOpinionPool('partner');
-      initializeOpinionPool('garage');
+    // Sidebar toggle
+    const sidebar = document.getElementById('sidebar');
+    const menuToggle = document.getElementById('menu-toggle');
+    const app = document.getElementById('app');
 
-      const menuToggle = document.getElementById('menu-toggle');
-      const sidebar = document.getElementById('sidebar');
+    function toggleSidebar() {
+      sidebar.classList.toggle('visible');
+      app.classList.toggle('sidebar-visible');
+    }
 
-      menuToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('visible');
-      });
+    menuToggle.addEventListener('click', toggleSidebar);
 
-      // zamknij menu po kliknięciu w "Kod QR"
-      const qrMenuItem = document.getElementById('qr-menu-item');
-      qrMenuItem.addEventListener('click', () => {
-        sidebar.classList.remove('visible');
-        alert('Kliknięto w "Kod QR" - tu możesz dodać swoją akcję');
-      });
-    };
+    // Ukrycie sidebar przy kliknięciu na pozycję menu "Kod QR"
+    sidebar.querySelector('ul li').addEventListener('click', toggleSidebar);
   </script>
 </body>
 </html>
