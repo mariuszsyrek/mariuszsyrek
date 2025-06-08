@@ -2,10 +2,9 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>test4</title>
+  <title>Dziękuję!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="styles.css" />
-  
 </head>
 <body>
   <!-- OKNO LOGOWANIA -->
@@ -24,12 +23,15 @@
     <button onclick="checkCode()" style="padding: 10px 20px; font-size: 16px;">
       Zatwierdź
     </button>
-    <p id="error-msg" style="color: red; display: none; margin-top: 10px;">
+    <p
+      id="error-msg"
+      style="color: red; display: none; margin-top: 10px;"
+    >
       ❌ Nieprawidłowy kod.
     </p>
   </div>
 
-  <!-- TREŚĆ APLIKACJI -->
+  <!-- TREŚĆ APLIKACJI - DOMYŚLNIE UKRYTA -->
   <div id="app-content">
     <!-- Przycisk menu -->
     <button id="menu-btn" onclick="toggleSidebar()">☰ Menu</button>
@@ -37,8 +39,7 @@
     <!-- Sidebar -->
     <div id="sidebar">
       <ul>
-        <li onclick="showQr()">Kod QR</li>
-        <!-- inne pozycje menu -->
+        <li onclick="toggleSidebar(); toggleQRCode()">Kod QR</li>
       </ul>
     </div>
 
@@ -51,9 +52,13 @@
         <button class="copy-btn" onclick="copyAndShow('partner')">ERES Partner</button>
         <div id="go-partner" class="hidden">
           <p>✅ Opinia została skopiowana!</p>
-          <button class="go-btn" onclick="goTo('partner')">
-            Przejdź do wystawienia opinii
-          </button>
+          <a
+            href="https://link-do-partner-opinii.com"
+            target="_blank"
+            class="go-btn"
+            onclick="resetViews()"
+            >Przejdź do wystawienia opinii</a
+          >
         </div>
       </section>
 
@@ -63,20 +68,23 @@
         <button class="copy-btn" onclick="copyAndShow('garage')">ERES Garage</button>
         <div id="go-garage" class="hidden">
           <p>✅ Opinia została skopiowana!</p>
-          <button class="go-btn" onclick="goTo('garage')">
-            Przejdź do wystawienia opinii
-          </button>
+          <a
+            href="https://link-do-garage-opinii.com"
+            target="_blank"
+            class="go-btn"
+            onclick="resetViews()"
+            >Przejdź do wystawienia opinii</a
+          >
         </div>
       </section>
     </main>
 
-    <!-- MODAL QR -->
-    <div id="qr-modal" onclick="hideQr()">
+    <!-- Kod QR (ukryty na start) -->
+    <div id="qr-code" class="hidden" onclick="toggleQRCode()">
       <img src="qr_code.png" alt="Kod QR" />
     </div>
   </div>
 
-  <!-- Komentarze -->
   <script src="comments.js"></script>
 
   <script>
@@ -86,11 +94,12 @@
       const errorMsg = document.getElementById("error-msg");
       const codeAuth = document.getElementById("code-auth");
       const appContent = document.getElementById("app-content");
-      const correctCode = "0000";
+      const correctCode = "0000"; // Twój kod dostępu
 
       if (input === correctCode) {
         codeAuth.style.display = "none";
         appContent.style.display = "block";
+        resetViews();
       } else {
         errorMsg.style.display = "block";
       }
@@ -102,17 +111,30 @@
       sidebar.classList.toggle("show");
     }
 
-    // QR modal
-    function showQr() {
-      document.getElementById("qr-modal").style.display = "flex";
+    // Kopiowanie i pokazanie potwierdzenia
+    function copyAndShow(type) {
+      let textToCopy = "";
+      if (type === "partner") {
+        textToCopy = "ERES Partner - tekst do skopiowania";
+      } else if (type === "garage") {
+        textToCopy = "ERES Garage - tekst do skopiowania";
+      }
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        document.getElementById(`go-${type}`).classList.remove("hidden");
+      });
     }
 
-    function hideQr() {
-      document.getElementById("qr-modal").style.display = "none";
+    // Reset widoków po powrocie z opinii
+    function resetViews() {
+      document.getElementById("go-partner").classList.add("hidden");
+      document.getElementById("go-garage").classList.add("hidden");
     }
 
-    // Funkcje do opinii (z comments.js):
-    // copyAndShow, goTo
+    // Pokazywanie/ukrywanie kodu QR
+    function toggleQRCode() {
+      const qr = document.getElementById("qr-code");
+      qr.classList.toggle("hidden");
+    }
   </script>
 </body>
 </html>
