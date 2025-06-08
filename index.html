@@ -109,21 +109,15 @@
       z-index: 10001;
     }
 
-    #qr-overlay {
+    #qr-container {
       display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.8);
-      z-index: 99999;
-      justify-content: center;
-      align-items: center;
+      text-align: center;
+      margin-top: 30px;
     }
 
-    #qr-overlay img {
-      max-width: 90vw;
-      max-height: 90vh;
+    #qr-container img {
+      max-width: 80%;
+      height: auto;
       cursor: pointer;
     }
   </style>
@@ -145,10 +139,7 @@
     <button onclick="checkCode()" style="padding: 10px 20px; font-size: 16px;">
       Zatwierdź
     </button>
-    <p
-      id="error-msg"
-      style="color: red; display: none; margin-top: 10px;"
-    >
+    <p id="error-msg" style="color: red; display: none; margin-top: 10px;">
       ❌ Nieprawidłowy kod.
     </p>
   </div>
@@ -157,10 +148,10 @@
   <div id="app-content">
     <button id="menu-btn" onclick="toggleSidebar()">☰ Menu</button>
 
-    <!-- Sidebar -->
     <div id="sidebar">
       <ul>
-        <li onclick="showQR()">Kod QR</li>
+        <li onclick="toggleQr()">Kod QR</li>
+        <!-- inne pozycje menu -->
       </ul>
     </div>
 
@@ -186,18 +177,20 @@
           <button class="go-btn" onclick="goTo('garage')">Przejdź do wystawienia opinii</button>
         </div>
       </section>
+
+      <!-- QR kod -->
+      <div id="qr-container">
+        <img src="qr_code.png" alt="Kod QR" onclick="toggleQr()" />
+        <p>(Kliknij obrazek, aby go zamknąć)</p>
+      </div>
     </main>
   </div>
 
-  <!-- QR Overlay -->
-  <div id="qr-overlay" onclick="hideQR()">
-    <img src="qr_code.png" alt="Kod QR" />
-  </div>
-
-  <!-- Skrypt opinii -->
+  <!-- KOMENTARZE -->
   <script src="comments.js"></script>
 
   <script>
+    // Logowanie
     function checkCode() {
       const input = document.getElementById("code-input").value.trim();
       const errorMsg = document.getElementById("error-msg");
@@ -213,55 +206,17 @@
       }
     }
 
+    // Przełączanie menu
     function toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
       sidebar.classList.toggle("show");
     }
 
-    function showQR() {
-      toggleSidebar();
-      document.getElementById("qr-overlay").style.display = "flex";
+    // Pokazuj / chowaj QR
+    function toggleQr() {
+      const qr = document.getElementById('qr-container');
+      qr.style.display = qr.style.display === 'none' ? 'block' : 'none';
     }
-
-    function hideQR() {
-      document.getElementById("qr-overlay").style.display = "none";
-    }
-
-    function copyAndShow(type) {
-      let showElement, hideElement, hideSection;
-
-      if (type === 'partner') {
-        showElement = document.getElementById('go-partner');
-        hideElement = document.querySelector('#partner-section button.copy-btn');
-        hideSection = document.getElementById('garage-section');
-      } else if (type === 'garage') {
-        showElement = document.getElementById('go-garage');
-        hideElement = document.querySelector('#garage-section button.copy-btn');
-        hideSection = document.getElementById('partner-section');
-      }
-
-      const opinion = getRandomOpinion(type);
-
-      navigator.clipboard.writeText(opinion)
-        .then(() => {
-          showElement.classList.remove('hidden');
-          hideElement.style.display = 'none';
-          if (hideSection) hideSection.style.display = 'none';
-        })
-        .catch(err => {
-          alert('Błąd kopiowania do schowka: ' + err);
-        });
-    }
-
-    function goTo(type) {
-      if (type === 'partner') {
-        window.open("https://search.google.com/local/writereview?placeid=ChIJsdO4W-1bFkcRG-tP0ZQAaiQ", '_blank');
-      } else if (type === 'garage') {
-        window.open("https://search.google.com/local/writereview?placeid=ChIJvQb-qNNbFkcRNyBuT9r5Q00", '_blank');
-      }
-    }
-
-    // Wczytanie opinii po stronie comments.js
   </script>
 </body>
 </html>
