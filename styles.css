@@ -13,7 +13,7 @@ html, body {
   position: fixed;
   top: 35%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -35%);
   background: white;
   padding: 30px 40px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
