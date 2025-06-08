@@ -2,10 +2,9 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>test5</title>
+  <title>test6</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="styles.css" />
- 
 </head>
 <body>
   <!-- OKNO LOGOWANIA -->
@@ -30,7 +29,7 @@
   </div>
 
   <!-- TREŚĆ APLIKACJI -->
-  <div id="app-content">
+  <div id="app-content" style="display: none;">
     <!-- Przycisk menu -->
     <button id="menu-btn" onclick="toggleSidebar()">☰ Menu</button>
 
@@ -51,9 +50,7 @@
         <button class="copy-btn" onclick="copyAndShow('partner')">ERES Partner</button>
         <div id="go-partner" class="hidden">
           <p>✅ Opinia została skopiowana!</p>
-          <button class="go-btn" onclick="goTo('partner')">
-            Przejdź do wystawienia opinii
-          </button>
+          <button class="go-btn" onclick="goTo('partner')">Przejdź do wystawienia opinii</button>
         </div>
       </section>
 
@@ -63,9 +60,7 @@
         <button class="copy-btn" onclick="copyAndShow('garage')">ERES Garage</button>
         <div id="go-garage" class="hidden">
           <p>✅ Opinia została skopiowana!</p>
-          <button class="go-btn" onclick="goTo('garage')">
-            Przejdź do wystawienia opinii
-          </button>
+          <button class="go-btn" onclick="goTo('garage')">Przejdź do wystawienia opinii</button>
         </div>
       </section>
     </main>
@@ -110,9 +105,6 @@
     function hideQr() {
       document.getElementById("qr-modal").style.display = "none";
     }
-
-    // Funkcje do opinii (z comments.js):
-    // copyAndShow, goTo
   </script>
 </body>
 </html>
