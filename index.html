@@ -76,6 +76,17 @@
   <script src="comments.js"></script>
 
   <script>
+    // Ustawienie zmiennej --vh na podstawie faktycznej wysokości okna (fix na klawiaturę mobilną)
+    function setFullHeight() {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+
+    window.addEventListener('resize', setFullHeight);
+    window.addEventListener('orientationchange', setFullHeight);
+    window.addEventListener('load', setFullHeight);
+    setFullHeight();
+
     function checkCode() {
       const input = document.getElementById("code-input").value.trim();
       const errorMsg = document.getElementById("error-msg");
