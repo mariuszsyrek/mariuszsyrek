@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>test1!</title>
+  <title>Dziękuję!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     html, body {
@@ -109,15 +109,24 @@
       z-index: 10001;
     }
 
-    #qr-container {
+    /* MODAL QR */
+    #qr-modal {
       display: none;
-      text-align: center;
-      margin-top: 30px;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 10002;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    #qr-container img {
+    #qr-modal img {
       max-width: 80%;
-      height: auto;
+      max-height: 80%;
+      border: 5px solid white;
+      border-radius: 10px;
       cursor: pointer;
     }
   </style>
@@ -150,7 +159,7 @@
 
     <div id="sidebar">
       <ul>
-        <li onclick="toggleQr()">Kod QR</li>
+        <li onclick="showQr()">Kod QR</li>
         <!-- inne pozycje menu -->
       </ul>
     </div>
@@ -177,20 +186,18 @@
           <button class="go-btn" onclick="goTo('garage')">Przejdź do wystawienia opinii</button>
         </div>
       </section>
-
-      <!-- QR kod -->
-      <div id="qr-container">
-        <img src="qr_code.png" alt="Kod QR" onclick="toggleQr()" />
-        <p>(Kliknij obrazek, aby go zamknąć)</p>
-      </div>
     </main>
+  </div>
+
+  <!-- MODAL QR -->
+  <div id="qr-modal" onclick="hideQr()">
+    <img src="qr_code.png" alt="Kod QR" />
   </div>
 
   <!-- KOMENTARZE -->
   <script src="comments.js"></script>
 
   <script>
-    // Logowanie
     function checkCode() {
       const input = document.getElementById("code-input").value.trim();
       const errorMsg = document.getElementById("error-msg");
@@ -206,16 +213,35 @@
       }
     }
 
-    // Przełączanie menu
     function toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
       sidebar.classList.toggle("show");
     }
 
-    // Pokazuj / chowaj QR
-    function toggleQr() {
-      const qr = document.getElementById('qr-container');
-      qr.style.display = qr.style.display === 'none' ? 'block' : 'none';
+    function showQr() {
+      document.getElementById("qr-modal").style.display = "flex";
+    }
+
+    function hideQr() {
+      document.getElementById("qr-modal").style.display = "none";
+    }
+
+    function copyAndShow(type) {
+      const textMap = {
+        partner: "ERES Partner",
+        garage: "ERES Garage"
+      };
+      navigator.clipboard.writeText(textMap[type]);
+
+      document.getElementById(`go-${type}`).classList.remove("hidden");
+    }
+
+    function goTo(type) {
+      const urlMap = {
+        partner: "https://g.page/r/Ca62IRTPPqLDEBM/review",
+        garage: "https://g.page/r/Cc9Pa7C_P0ogEBM/review"
+      };
+      window.open(urlMap[type], "_blank");
     }
   </script>
 </body>
