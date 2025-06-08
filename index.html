@@ -107,14 +107,12 @@
     document.addEventListener("DOMContentLoaded", function () {
       const input = document.getElementById("code-input");
 
-      // Enter na input do zatwierdzenia kodu
       input.addEventListener("keydown", function (e) {
         if (e.key === "Enter") {
           checkCode();
         }
       });
 
-      // Blokowanie scrolla przy fokusie inputa
       input.addEventListener("focus", () => {
         document.body.style.overflow = "hidden";
       });
@@ -124,6 +122,20 @@
       });
 
       document.getElementById("qr-modal").addEventListener("click", hideQr);
+
+      // Zamknij sidebar po kliknięciu poza sidebar i przycisk menu
+      document.addEventListener('click', function(event) {
+        const sidebar = document.getElementById('sidebar');
+        const menuBtn = document.getElementById('menu-btn');
+
+        if (
+          sidebar.classList.contains('show') &&  // jeśli sidebar jest otwarty
+          !sidebar.contains(event.target) &&      // kliknięcie poza sidebar
+          event.target !== menuBtn                 // kliknięcie nie na przycisku menu
+        ) {
+          sidebar.classList.remove('show');      // zamknij sidebar
+        }
+      });
     });
 
     function toggleSidebar() {
