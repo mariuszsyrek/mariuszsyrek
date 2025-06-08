@@ -109,11 +109,19 @@
     }
 
     function showQr() {
-      document.getElementById("qr-modal").style.display = "flex";
+      const qrModal = document.getElementById("qr-modal");
+      qrModal.classList.remove("hide");
+      qrModal.classList.add("show");
     }
 
     function hideQr() {
-      document.getElementById("qr-modal").style.display = "none";
+      const qrModal = document.getElementById("qr-modal");
+      qrModal.classList.remove("show");
+      qrModal.classList.add("hide");
+
+      setTimeout(() => {
+        qrModal.classList.remove("hide");
+      }, 300); // po zakończeniu animacji usuwamy hide, by móc ponownie uruchomić
     }
   </script>
 </body>
