@@ -12,7 +12,6 @@
       overflow: hidden;
     }
 
-    /* OKNO LOGOWANIA */
     #code-auth {
       position: fixed;
       top: 50%; left: 50%;
@@ -26,7 +25,6 @@
       width: 280px;
     }
 
-    /* TREŚĆ APLIKACJI - DOMYŚLNIE UKRYTA */
     #app-content {
       height: 100vh;
       overflow: auto;
@@ -63,12 +61,11 @@
       display: none;
     }
 
-    /* Sidebar menu */
     #sidebar {
       position: fixed;
-      top: 60px; /* niżej pod nagłówkiem */
+      top: 60px;
       left: 0;
-      width: 125px; /* połowa szerokości poprzedniej */
+      width: 125px;
       height: calc(100vh - 60px);
       background: #333;
       color: white;
@@ -99,7 +96,6 @@
       background: #444;
     }
 
-    /* Button to open sidebar */
     #menu-btn {
       position: fixed;
       top: 10px;
@@ -111,6 +107,24 @@
       padding: 8px 12px;
       cursor: pointer;
       z-index: 10001;
+    }
+
+    #qr-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 99999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #qr-overlay img {
+      max-width: 90vw;
+      max-height: 90vh;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -139,16 +153,14 @@
     </p>
   </div>
 
-  <!-- TREŚĆ APLIKACJI - DOMYŚLNIE UKRYTA -->
+  <!-- TREŚĆ APLIKACJI -->
   <div id="app-content">
-    <!-- Przycisk menu -->
     <button id="menu-btn" onclick="toggleSidebar()">☰ Menu</button>
 
     <!-- Sidebar -->
     <div id="sidebar">
       <ul>
-        <li onclick="toggleSidebar()">Kod QR</li>
-        <!-- inne pozycje menu tutaj jeśli potrzebne -->
+        <li onclick="showQR()">Kod QR</li>
       </ul>
     </div>
 
@@ -161,9 +173,7 @@
         <button class="copy-btn" onclick="copyAndShow('partner')">ERES Partner</button>
         <div id="go-partner" class="hidden">
           <p>✅ Opinia została skopiowana!</p>
-          <button class="go-btn" onclick="goTo('partner')">
-            Przejdź do wystawienia opinii
-          </button>
+          <button class="go-btn" onclick="goTo('partner')">Przejdź do wystawienia opinii</button>
         </div>
       </section>
 
@@ -173,25 +183,27 @@
         <button class="copy-btn" onclick="copyAndShow('garage')">ERES Garage</button>
         <div id="go-garage" class="hidden">
           <p>✅ Opinia została skopiowana!</p>
-          <button class="go-btn" onclick="goTo('garage')">
-            Przejdź do wystawienia opinii
-          </button>
+          <button class="go-btn" onclick="goTo('garage')">Przejdź do wystawienia opinii</button>
         </div>
       </section>
     </main>
   </div>
 
-  <!-- Załaduj skrypt z komentarzami -->
+  <!-- QR Overlay -->
+  <div id="qr-overlay" onclick="hideQR()">
+    <img src="qr_code.png" alt="Kod QR" />
+  </div>
+
+  <!-- Skrypt opinii -->
   <script src="comments.js"></script>
 
   <script>
-    // Logowanie
     function checkCode() {
       const input = document.getElementById("code-input").value.trim();
       const errorMsg = document.getElementById("error-msg");
       const codeAuth = document.getElementById("code-auth");
       const appContent = document.getElementById("app-content");
-      const correctCode = "0000"; // Twój kod dostępu
+      const correctCode = "0000";
 
       if (input === correctCode) {
         codeAuth.style.display = "none";
@@ -201,11 +213,55 @@
       }
     }
 
-    // Sidebar toggle
     function toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
       sidebar.classList.toggle("show");
     }
+
+    function showQR() {
+      toggleSidebar();
+      document.getElementById("qr-overlay").style.display = "flex";
+    }
+
+    function hideQR() {
+      document.getElementById("qr-overlay").style.display = "none";
+    }
+
+    function copyAndShow(type) {
+      let showElement, hideElement, hideSection;
+
+      if (type === 'partner') {
+        showElement = document.getElementById('go-partner');
+        hideElement = document.querySelector('#partner-section button.copy-btn');
+        hideSection = document.getElementById('garage-section');
+      } else if (type === 'garage') {
+        showElement = document.getElementById('go-garage');
+        hideElement = document.querySelector('#garage-section button.copy-btn');
+        hideSection = document.getElementById('partner-section');
+      }
+
+      const opinion = getRandomOpinion(type);
+
+      navigator.clipboard.writeText(opinion)
+        .then(() => {
+          showElement.classList.remove('hidden');
+          hideElement.style.display = 'none';
+          if (hideSection) hideSection.style.display = 'none';
+        })
+        .catch(err => {
+          alert('Błąd kopiowania do schowka: ' + err);
+        });
+    }
+
+    function goTo(type) {
+      if (type === 'partner') {
+        window.open("https://search.google.com/local/writereview?placeid=ChIJsdO4W-1bFkcRG-tP0ZQAaiQ", '_blank');
+      } else if (type === 'garage') {
+        window.open("https://search.google.com/local/writereview?placeid=ChIJvQb-qNNbFkcRNyBuT9r5Q00", '_blank');
+      }
+    }
+
+    // Wczytanie opinii po stronie comments.js
   </script>
 </body>
 </html>
