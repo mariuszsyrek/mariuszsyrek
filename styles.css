@@ -1,100 +1,101 @@
+html, body {
+  margin: 0; padding: 0; height: 100vh; font-family: sans-serif;
+  background: linear-gradient(to bottom, #cce5ff, #ffffff);
+  color: #333;
+  overflow: hidden;
+}
 
-    html, body {
-      margin: 0; padding: 0; height: 100vh; font-family: sans-serif;
-      background: linear-gradient(to bottom, #cce5ff, #ffffff);
-      color: #333;
-      overflow: hidden;
-    }
+/* OKNO LOGOWANIA */
+#code-auth {
+  position: fixed;
+  top: 35%; /* zamiast 50% */
+  left: 50%;
+  transform: translate(-50%, -35%); /* zamiast -50% */
+  background: white;
+  padding: 30px 40px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  z-index: 10000;
+  text-align: center;
+  width: 280px;
+}
 
-    /* OKNO LOGOWANIA */
-    #code-auth {
-    position: fixed;
-    top: 35%; /* zamiast 50% */
-    left: 50%;
-    transform: translate(-50%, -35%); /* zamiast -50% */
-    background: white;
-    padding: 30px 40px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    border-radius: 8px;
-    z-index: 10000;
-    text-align: center;
-    width: 280px;
-    }
-    /* TREŚĆ APLIKACJI - DOMYŚLNIE UKRYTA */
-    #app-content {
-      height: 100vh;
-      overflow: auto;
-      display: none;
-    }
+/* TREŚĆ APLIKACJI - DOMYŚLNIE UKRYTA */
+#app-content {
+  height: 100vh;
+  overflow: auto;
+  display: none;
+}
 
-    header {
-      background-color: #000;
-      height: 60px;
-      border-bottom: 2px solid #ccc;
-    }
+header {
+  background-color: #000;
+  height: 60px;
+  border-bottom: 2px solid #ccc;
+}
 
-    main {
-      padding: 20px;
-      text-align: center;
-    }
+main {
+  padding: 20px;
+  text-align: center;
+}
 
-    h2 {
-      margin-top: 30px;
-    }
+h2 {
+  margin-top: 30px;
+}
 
-    button.copy-btn, button.go-btn {
-      margin: 10px;
-      padding: 12px 20px;
-      font-size: 16px;
-      background-color: #000;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+button.copy-btn, button.go-btn {
+  margin: 10px;
+  padding: 12px 20px;
+  font-size: 16px;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-    .hidden {
-      display: none;
-    }
+/* Ukryte elementy */
+.hidden {
+  display: none;
+}
 
-    /* Sidebar menu */
-    #sidebar {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      width: 125px;
-      height: calc(100vh - 60px);
-      background: #333;
-      color: white;
-      padding: 20px;
-      box-sizing: border-box;
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      z-index: 9999;
-    }
+/* Sidebar menu */
+#sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 125px;
+  height: calc(100vh - 60px);
+  background: #333;
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 9999;
+}
 
-    #sidebar.show {
-      transform: translateX(0);
-    }
+#sidebar.show {
+  transform: translateX(0);
+}
 
-    #sidebar ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-    #sidebar ul li {
-      padding: 12px 0;
-      border-bottom: 1px solid #555;
-      cursor: pointer;
-    }
+#sidebar ul li {
+  padding: 12px 0;
+  border-bottom: 1px solid #555;
+  cursor: pointer;
+}
 
-    #sidebar ul li:hover {
-      background: #444;
-    }
+#sidebar ul li:hover {
+  background: #444;
+}
 
-    /* Button to open sidebar */
-   #menu-btn {
+/* Button to open sidebar */
+#menu-btn {
   position: fixed;
   top: 10px;
   left: 10px;
@@ -124,24 +125,63 @@
   transform: none;
 }
 
-    /* QR modal */
-    #qr-modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.7);
-      z-index: 10002;
-      justify-content: center;
-      align-items: center;
-    }
+/* Animacje fade + zoom dla modala */
+@keyframes fadeZoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
-    #qr-modal img {
-      max-width: 300px;
-      max-height: 300px;
-      background: white;
-      padding: 10px;
-      border-radius: 10px;
-    }
-  
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* QR modal - domyślnie ukryty i nieinteraktywny */
+#qr-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 10002;
+  justify-content: center;
+  align-items: center;
+  display: flex; /* aby obrazek był wyśrodkowany */
+  opacity: 0;
+  pointer-events: none; /* blokuje kliknięcia, gdy niewidoczny */
+  transition: opacity 0.3s ease;
+}
+
+/* Pokaż modal z animacją */
+#qr-modal.show {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+  animation: fadeZoomIn 0.3s forwards;
+}
+
+/* Ukryj modal z animacją fade out */
+#qr-modal.hide {
+  animation: fadeOut 0.3s forwards;
+  pointer-events: none;
+}
+
+/* Styl obrazka QR */
+#qr-modal img {
+  max-width: 300px;
+  max-height: 300px;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+}
