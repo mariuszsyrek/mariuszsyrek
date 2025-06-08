@@ -109,8 +109,14 @@
       padding-left: 250px;
     }
 
-    main {
-      padding: 20px;
+   main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* poziome wyśrodkowanie */
+    justify-content: center; /* pionowe wyśrodkowanie */
+    height: calc(100vh - 60px); /* pełna wysokość ekranu minus header */
+    padding: 20px;
+    box-sizing: border-box;
     }
 
     h2 {
