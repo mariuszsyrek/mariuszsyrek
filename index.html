@@ -65,9 +65,12 @@
     </main>
 
     <!-- MODAL QR -->
-    <div id="qr-modal" onclick="hideQr()">
-      <img src="qr_code.png" alt="Kod QR" />
-    </div>
+    <div id="qr-modal">
+  <div id="qr-content" onclick="event.stopPropagation()">
+    <img src="qr_code.png" alt="Kod QR" />
+    <button id="download-btn" onclick="downloadQr()">📥 Pobierz QR</button>
+  </div>
+</div>
   </div>
 
   <script src="comments.js"></script>
