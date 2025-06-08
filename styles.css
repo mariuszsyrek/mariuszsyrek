@@ -213,7 +213,7 @@ button.go-btn {
 
 /* Styl przycisku do pobrania QR */
 #download-btn {
-   background-color: #333; /* takie samo jak sidebar */
+  background-color: #333; /* takie samo jak sidebar */
   color: white;
   border: none;
   border-radius: 3px;
