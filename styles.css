@@ -197,3 +197,39 @@ button.go-btn:hover,
   transform: scale(0.8);
   animation: imageZoomIn 0.3s ease-out forwards;
 }
+
+/* ======= RESPONSYWNOŚĆ dla telefonów ======= */
+@media (max-width: 600px) {
+  html, body {
+    overflow: auto;
+    height: auto;
+  }
+
+  header {
+    height: 50px;
+    background-color: #000;
+    border-bottom: 2px solid #ccc;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  main {
+    padding-top: 60px; /* odstęp pod header */
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  #sidebar {
+    top: 50px; /* pod header */
+    height: calc(100vh - 50px);
+    width: 160px;
+  }
+
+  button.copy-btn, button.go-btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
