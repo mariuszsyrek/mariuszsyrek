@@ -10,9 +10,9 @@
       padding: 0;
       height: 100%;
       overflow: hidden;
+      font-family: sans-serif;
     }
     body {
-      font-family: sans-serif;
       text-align: center;
       color: #333;
       background: linear-gradient(to bottom, #cce5ff, #ffffff);
@@ -21,13 +21,57 @@
       background-color: #000;
       height: 60px;
       border-bottom: 2px solid #ccc;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      position: relative;
+      color: white;
+      user-select: none;
     }
+
+    /* Menu toggle button */
+    #menu-toggle {
+      font-size: 28px;
+      cursor: pointer;
+      margin-right: 20px;
+    }
+
+    /* Sidebar menu */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px; /* ukryte poza ekranem */
+      width: 250px;
+      height: 100%;
+      background-color: #222;
+      color: white;
+      padding-top: 60px; /* żeby nie nakładało się na header */
+      box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+      transition: left 0.3s ease;
+      z-index: 1000;
+    }
+    #sidebar.show {
+      left: 0;
+    }
+    #sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #sidebar ul li {
+      padding: 15px 20px;
+      border-bottom: 1px solid #444;
+      cursor: pointer;
+    }
+    #sidebar ul li:hover {
+      background-color: #555;
+    }
+
     main {
       padding: 20px;
+      margin-top: 60px;
     }
-    h2 {
-      margin-top: 30px;
-    }
+
     button.copy-btn, button.go-btn {
       margin: 10px;
       padding: 12px 20px;
@@ -43,7 +87,8 @@
     }
   </style>
 </head>
-<body>
+<body style="display: none;">
+
   <div id="code-auth">
     <h2 style="margin-top: 100px;">🔒 Podaj kod dostępu</h2>
     <input
@@ -56,15 +101,22 @@
       autofocus
     />
     <br /><br />
-    <button onclick="checkCode()" style="padding: 10px 20px; font-size: 16px;">
-      Zatwierdź
-    </button>
+    <button onclick="checkCode()" style="padding: 10px 20px; font-size: 16px;">Zatwierdź</button>
     <p id="error-msg" style="color: red; display: none;">❌ Nieprawidłowy kod.</p>
   </div>
 
-  <header class="hidden"></header>
+  <header>
+    <div id="menu-toggle">&#9776;</div>
+    <div>Twoja Strona</div>
+  </header>
 
-  <main class="hidden">
+  <nav id="sidebar">
+    <ul>
+      <li id="qr-menu-item">Kod QR</li>
+    </ul>
+  </nav>
+
+  <main>
     <section id="partner-section">
       <h2>Partner</h2>
       <p>Kliknij przycisk poniżej</p>
@@ -130,10 +182,9 @@
       if (opinionPools[type].length === 0) {
         initializeOpinionPool(type);
       }
-
       const index = Math.floor(Math.random() * opinionPools[type].length);
       const opinion = opinionPools[type][index];
-      opinionPools[type].splice(index, 1); // usuń używaną opinię
+      opinionPools[type].splice(index, 1);
       return opinion;
     }
 
@@ -175,14 +226,27 @@
       const input = document.getElementById("code-input").value;
       if (input === "0000") {
         document.getElementById("code-auth").style.display = "none";
-        document.querySelector("header").classList.remove("hidden");
-        document.querySelector("main").classList.remove("hidden");
+        document.body.style.display = "block";
       } else {
         document.getElementById("error-msg").style.display = "block";
       }
     }
 
-    // Inicjalizacja opinii przy załadowaniu strony
+    // Toggle menu sidebar
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('show');
+    });
+
+    // Kliknięcie w "Kod QR" schowa menu
+    const qrMenuItem = document.getElementById('qr-menu-item');
+    qrMenuItem.addEventListener('click', () => {
+      sidebar.classList.remove('show');
+      alert('Tu możesz dodać pokazanie Kod QR!');
+    });
+
+    // Inicjalizacja
     window.onload = () => {
       initializeOpinionPool('partner');
       initializeOpinionPool('garage');
