@@ -94,18 +94,35 @@
     }
 
     /* Button to open sidebar */
-    #menu-btn {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      background: #000;
-      color: white;
-      border: none;
-      border-radius: 3px;
-      padding: 8px 12px;
-      cursor: pointer;
-      z-index: 10001;
-    }
+   #menu-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: #000; /* czarne tło */
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 8px 12px;
+  cursor: pointer;
+  z-index: 10001;
+
+  /* Wyłącz efekty zmiany koloru/focus na mobilnych i desktopie */
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  box-shadow: none;
+  user-select: none;
+  transition: none;
+}
+
+/* Usuń efekty po kliknięciu i focusie */
+#menu-btn:focus,
+#menu-btn:active,
+#menu-btn:hover {
+  background: #000;
+  outline: none;
+  box-shadow: none;
+  transform: none;
+}
 
     /* QR modal */
     #qr-modal {
