@@ -163,10 +163,21 @@ button.go-btn:hover {
   z-index: 10001;
   transition: none; /* brak animacji */
 
-  /* dodane, aby wyłączyć niebieski efekt na mobilnych */
+  /* Wyłącz niebieski efekt na urządzeniach mobilnych */
   -webkit-tap-highlight-color: transparent;
   outline: none;
+  box-shadow: none;
+  user-select: none;
+  -webkit-focus-ring-color: transparent;
 }
+
+/* Dodatkowo wyłącz focus i active outline/box-shadow */
+#menu-btn:focus,
+#menu-btn:active {
+  outline: none;
+  box-shadow: none;
+}
+
 
 #menu-btn:hover {
   background-color: #333;
