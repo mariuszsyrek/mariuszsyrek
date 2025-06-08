@@ -1,5 +1,8 @@
 html, body {
-  margin: 0; padding: 0; height: 100vh; font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-family: sans-serif;
   background: linear-gradient(to bottom, #cce5ff, #ffffff);
   color: #333;
   overflow: hidden;
@@ -8,9 +11,9 @@ html, body {
 /* OKNO LOGOWANIA */
 #code-auth {
   position: fixed;
-  top: 35%; /* zamiast 50% */
+  top: 35%;
   left: 50%;
-  transform: translate(-50%, -35%); /* zamiast -50% */
+  transform: translate(-50%, -35%);
   background: white;
   padding: 30px 40px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
@@ -99,7 +102,7 @@ button.copy-btn, button.go-btn {
   position: fixed;
   top: 10px;
   left: 10px;
-  background: #000; /* czarne tło */
+  background: #000;
   color: white;
   border: none;
   border-radius: 3px;
@@ -107,7 +110,6 @@ button.copy-btn, button.go-btn {
   cursor: pointer;
   z-index: 10001;
 
-  /* Wyłącz efekty zmiany koloru/focus na mobilnych i desktopie */
   -webkit-tap-highlight-color: transparent;
   outline: none;
   box-shadow: none;
@@ -115,7 +117,6 @@ button.copy-btn, button.go-btn {
   transition: none;
 }
 
-/* Usuń efekty po kliknięciu i focusie */
 #menu-btn:focus,
 #menu-btn:active,
 #menu-btn:hover {
@@ -146,24 +147,42 @@ button.copy-btn, button.go-btn {
   }
 }
 
-/* QR modal - domyślnie ukryty i nieinteraktywny */
+/* 🔥 DODANE animacje fade dla logowania */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in forwards;
+}
+
+.fade-out {
+  animation: fadeOut 0.3s ease-out forwards;
+}
+
+/* QR modal */
 #qr-modal {
   display: none;
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 10002;
   justify-content: center;
   align-items: center;
-  display: flex; /* aby obrazek był wyśrodkowany */
+  display: flex;
   opacity: 0;
-  pointer-events: none; /* blokuje kliknięcia, gdy niewidoczny */
+  pointer-events: none;
   transition: opacity 0.3s ease;
 }
 
-/* Pokaż modal z animacją */
 #qr-modal.show {
   display: flex;
   opacity: 1;
@@ -171,13 +190,11 @@ button.copy-btn, button.go-btn {
   animation: fadeZoomIn 0.3s forwards;
 }
 
-/* Ukryj modal z animacją fade out */
 #qr-modal.hide {
   animation: fadeOut 0.3s forwards;
   pointer-events: none;
 }
 
-/* Styl obrazka QR */
 #qr-modal img {
   max-width: 300px;
   max-height: 300px;
