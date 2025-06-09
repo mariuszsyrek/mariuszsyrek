@@ -98,7 +98,27 @@ const garageOpinions = [
   "Po polerce szyb widoczność w deszczu się poprawiła – bardzo polecam.",
   "Wymiana opon i wyważenie zrobione ekspresowo – zero drgań na kierownicy.",
   "Zleciłem detailing komory silnika – czystość jak w nowym aucie.",
-  "Po renowacji lakieru i aplikacji sealantu auto błyszczy i przyciąga spojrzenia."
+  "Po renowacji lakieru i aplikacji sealantu auto błyszczy i przyciąga spojrzenia.",
+  "Auto po pełnym detailingu wygląda jak z salonu – perfekcyjna robota i świetny zapach w środku!",
+  "Wymiana rozrządu wykonana sprawnie i fachowo – silnik pracuje bez zarzutu.",
+  "Zleciłem oklejenie auta folią satynową – efekt przeszedł moje oczekiwania!",
+  "Detailing wnętrza plus pranie tapicerki – auto jak nowe, aż trudno uwierzyć, że to ten sam samochód.",
+  "Po kompleksowej kosmetyce lakieru i zabezpieczeniu powłoką ceramiczną auto wygląda niesamowicie!",
+  "Naprawa klimatyzacji zrobiona ekspresowo – chłodzi lepiej niż wcześniej!",
+  "Profesjonalna regeneracja lamp i zabezpieczenie ich folią – światła jak nowe i dobrze chronione.",
+  "Auto po serwisie klimatyzacji i ozonowaniu pachnie świeżo i działa bez zarzutu – polecam!",
+  "Zdecydowałem się na czarny dach i lusterka – oklejenie folią wykonane perfekcyjnie, auto wygląda agresywnie.",
+  "Detailing felg oraz konserwacja opon – świetny efekt wizualny i ochrona.",
+  "Po wymianie zawieszenia komfort jazdy znacząco się poprawił – profesjonalna usługa.",
+  "Auto po oklejeniu folią zmieniło całkowicie wygląd – teraz przyciąga wzrok na ulicy!",
+  "Czyszczenie i impregnacja tapicerki materiałowej – efekt jak po fabrycznym czyszczeniu!",
+  "Zleciłem detailing reflektorów i szyb – widoczność w nocy znacznie lepsza, a auto wygląda młodziej.",
+  "Profesjonalne mycie detailingowe z woskowaniem – lakier głęboki i lśniący jak lustro!",
+  "Po wymianie termostatu i płynu chłodniczego auto utrzymuje idealną temperaturę – sprawna robota.",
+  "Zabezpieczenie lakieru folią samoregenerującą – niesamowita technologia i super efekt.",
+  "Oklejanie elementów wnętrza folią carbon – drobne zmiany, a wnętrze wygląda o wiele nowocześniej!",
+  "Naprawa układu kierowniczego wykonana wzorowo – auto prowadzi się pewnie i bez luzów.",
+  "Po dokładnym czyszczeniu i detailingowym praniu bagażnika nie zostało śladu po wcześniejszych zabrudzeniach."
 ];
 
 // Zmienne pomocnicze do zarządzania kopiowaniem
