@@ -54,7 +54,27 @@ const partnerOpinions = [
   "Rejestracja, dokumenty, aplikacje i oznakowanie auta – wszystko załatwiłem z pomocą Pana Mariusza w jeden dzień.",
   "Mariusz zadbał o każdy szczegół – dzięki temu nie miałem żadnych problemów z rozpoczęciem pracy.",
   "Proces zatrudnienia z Panem Mariuszem przebiegł szybko, konkretnie i bez żadnych komplikacji.",
-  "Cała procedura została mi jasno wyjaśniona przez Mariusza – jestem bardzo zadowolony z pomocy."
+  "Cała procedura została mi jasno wyjaśniona przez Mariusza – jestem bardzo zadowolony z pomocy.",
+  "Mariusz zorganizował cały proces rekrutacji perfekcyjnie – szybko, sprawnie i bez stresu.",
+  "Dzięki Mariuszowi wszystkie formalności były załatwione błyskawicznie – mogłem od razu rozpocząć pracę.",
+  "Świetna pomoc – Mariusz dokładnie wytłumaczył każdy krok i był dostępny na każdym etapie.",
+  "Z pomocą Pana Mariusza rejestracja i konfiguracja przebiegła bez najmniejszych problemów – polecam!",
+  "Mariusz od razu zajął się dokumentami, aplikacjami i oznakowaniem auta – pełen profesjonalizm.",
+  "Bardzo doceniam pomoc Mariusza – wszystko poszło szybko i zgodnie z planem.",
+  "Dzięki zaangażowaniu Mariusza mogłem ruszyć z pracą już tego samego dnia – świetna organizacja.",
+  "Mariusz to właściwa osoba na właściwym miejscu – rejestracja, umowa i auto gotowe ekspresowo.",
+  "Rekrutacja z pomocą Mariusza to czysta formalność – wszystko przygotowane od ręki.",
+  "Pan Mariusz pomógł mi przejść przez wszystkie etapy rejestracji krok po kroku – super podejście.",
+  "Bardzo szybka i profesjonalna obsługa – Mariusz zadbał o każdy detal procesu rekrutacyjnego.",
+  "Dzięki Mariuszowi nie musiałem się niczym martwić – dokumenty, konta i oznakowanie ogarnięte w mig.",
+  "Mariusz przygotował mnie kompleksowo – od dokumentów po gotowe auto do pracy.",
+  "Pełne zaangażowanie i jasne instrukcje – z pomocą Mariusza wszystko było proste i szybkie.",
+  "Pan Mariusz pokierował mnie przez cały proces – zero stresu, pełen profesjonalizm.",
+  "Dzięki jego pomocy cała procedura była szybka i przejrzysta – bardzo polecam współpracę z Mariuszem.",
+  "Mariusz udzielił mi pełnego wsparcia – każde pytanie miało jasną odpowiedź, a formalności były błyskawiczne.",
+  "Świetny kontakt z Mariuszem i konkretna pomoc – auto przygotowane, dokumenty złożone, wszystko działa.",
+  "Pan Mariusz to wzór profesjonalizmu – wszystko załatwione sprawnie i dokładnie tak, jak trzeba.",
+  "Rekrutacja, oznakowanie auta i konfiguracja aplikacji – Mariusz ogarnął wszystko w ekspresowym tempie."
 ];
 
 // Opinie garażu
